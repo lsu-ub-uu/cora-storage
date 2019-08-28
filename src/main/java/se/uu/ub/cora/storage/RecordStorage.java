@@ -21,7 +21,7 @@ package se.uu.ub.cora.storage;
 
 import java.util.Collection;
 
-import se.uu.ub.cora.bookkeeper.data.DataGroup;
+import se.uu.ub.cora.data.DataGroup;
 
 public interface RecordStorage {
 
