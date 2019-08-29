@@ -37,9 +37,9 @@ public interface RecordStorage {
 	void update(String type, String id, DataGroup record, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
-	SpiderReadResult readList(String type, DataGroup filter);
+	StorageReadResult readList(String type, DataGroup filter);
 
-	SpiderReadResult readAbstractList(String type, DataGroup filter);
+	StorageReadResult readAbstractList(String type, DataGroup filter);
 
 	DataGroup readLinkList(String type, String id);
 

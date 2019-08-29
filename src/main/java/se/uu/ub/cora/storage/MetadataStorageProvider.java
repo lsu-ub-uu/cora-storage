@@ -20,8 +20,6 @@ package se.uu.ub.cora.storage;
 
 import java.util.Map;
 
-import se.uu.ub.cora.bookkeeper.storage.MetadataStorage;
-
 /**
  * MetadataStorageProvider is used to provide storage for Metadata
  */

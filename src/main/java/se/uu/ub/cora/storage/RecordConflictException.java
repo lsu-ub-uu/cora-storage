@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, 2018 Uppsala University Library
+ * Copyright 2015 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -16,16 +16,15 @@
  *     You should have received a copy of the GNU General Public License
  *     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package se.uu.ub.cora.storage;
 
-import java.util.List;
+public class RecordConflictException extends RuntimeException{
 
-import se.uu.ub.cora.data.DataGroup;
+	private static final long serialVersionUID = 2241064467145940402L;
+	public RecordConflictException(String message) {
+		super(message);
+	}
 
-public final class SpiderReadResult {
-
-	public long start;
-	public long totalNumberOfMatches;
-	public List<DataGroup> listOfDataGroups;
 
 }
