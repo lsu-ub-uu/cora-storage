@@ -35,7 +35,7 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>0.1-SNAPSHOT</coradata.version>
+		<coradata.version>1.0.0</coradata.version>
 	</properties>
 
 	<scm>
