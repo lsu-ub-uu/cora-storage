@@ -22,20 +22,17 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.9.0</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<artifactId>storage</artifactId>
 	<version>1.4-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<build>
-		<finalName>cora-${artifactId}-${version}</finalName>
-	</build>
 
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>1.0.0</coradata.version>
+		<coradata.version>2.0.0</coradata.version>
 	</properties>
 
 	<scm>
