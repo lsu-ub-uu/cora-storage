@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2019 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -19,12 +19,16 @@
 
 package se.uu.ub.cora.storage;
 
-public class RecordNotFoundException extends RuntimeException{
+public class RecordNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = -4842357477828677591L;
 
 	public RecordNotFoundException(String message) {
 		super(message);
+	}
+
+	public RecordNotFoundException(String message, Exception exception) {
+		super(message, exception);
 	}
 
 }
