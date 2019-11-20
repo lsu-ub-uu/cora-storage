@@ -32,7 +32,7 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>2.0.0</coradata.version>
+		<coradata.version>3.0.0</coradata.version>
 	</properties>
 
 	<scm>
