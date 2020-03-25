@@ -21,6 +21,12 @@ package se.uu.ub.cora.storage;
 
 import java.io.InputStream;
 
+/**
+ * RecordStorage is the interface that defines how streams are stored and retreived from a Cora
+ * system. This interface makes the stream storage implementation decoupled from the rest of the
+ * system enabling different stream storage solutions to be developed and used depending on the
+ * needs of the current system.
+ */
 public interface StreamStorage {
 
 	long store(String streamId, String dataDivider, InputStream stream);
