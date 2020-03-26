@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2020 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -23,6 +23,12 @@ import java.util.Collection;
 
 import se.uu.ub.cora.data.DataGroup;
 
+/**
+ * RecordStorage is the interface that defines how records are stored and retreived from a Cora
+ * system. This interface makes the storage implementation decoupled from the rest of the system
+ * enabling different storage solutions to be developed and used depending on the needs of the
+ * current system.
+ */
 public interface RecordStorage {
 
 	DataGroup read(String type, String id);
