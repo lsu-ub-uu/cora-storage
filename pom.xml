@@ -32,8 +32,8 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>3.4.0</coradata.version>
-	</properties>
+		<coradata.version>3.5.0</coradata.version>
+	</properties> 
 
 	<scm>
 		<connection>scm:git:https://github.com/lsu-ub-uu/cora-storage.git</connection>
