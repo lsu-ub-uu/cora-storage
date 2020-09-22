@@ -31,6 +31,18 @@ import se.uu.ub.cora.data.DataGroup;
  */
 public interface RecordStorage {
 
+	/**
+	 * read should return, from storage, the record that matches type and id. <br>
+	 * <br>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested record can not be found.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A {@link DataGroup} with the requested records data
+	 */
 	DataGroup read(String type, String id);
 
 	void create(String type, String id, DataGroup record, DataGroup collectedTerms,
