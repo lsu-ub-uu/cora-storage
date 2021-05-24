@@ -25,6 +25,10 @@ import se.uu.ub.cora.data.DataGroup;
 public final class StorageReadResult {
 
 	public long start;
+	/**
+	 * totalNumberOfMatches contains the total number of records in storage for the recordType,
+	 * matching any provided filter.
+	 */
 	public long totalNumberOfMatches;
 	public List<DataGroup> listOfDataGroups;
 
