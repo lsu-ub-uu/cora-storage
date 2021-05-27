@@ -70,15 +70,16 @@ public interface RecordStorage {
 	/**
 	 * getTotalNumberOfRecords should return the number of records that are stored under the
 	 * specified type. <br>
-	 * If the record type is abstract, should the returned number be that of all stored records for
-	 * all implementing record types that are children to the specified abstract type.
+	 * If the record type is abstract, the returned number should be all stored records for all
+	 * implementing record types that are children to the specified abstract type.
 	 * <p>
-	 * If a filter is specified should the total number of records reflect only those wich match the
+	 * If a filter is specified the total number of records should reflect only those wich match the
 	 * filter. Filter information is based on the collectedTerms / storageTerms entered together
 	 * with the record when creating or updating the record.<br>
-	 * If the filter specifies a specific range of records to return, should that be ignored and the
-	 * returned total number of records be the total number of records stored for the type.<br>
-	 * If the filter contains no include or exclude information should all records be counted.
+	 * If the filter specifies a specific range of records to return, the range should be ignored
+	 * and the returned total number of records should be the total number of records stored for the
+	 * type.<br>
+	 * If the filter contains no include or exclude information all records should ,mnbe counted.
 	 * 
 	 * @param type
 	 *            A String with the record type
