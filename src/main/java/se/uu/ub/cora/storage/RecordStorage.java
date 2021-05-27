@@ -32,8 +32,10 @@ import se.uu.ub.cora.data.DataGroup;
 public interface RecordStorage {
 
 	/**
-	 * read should return, from storage, the record that matches type and id. <br>
-	 * <br>
+	 * read should return, from storage, the record that has the corresponding type and id.
+	 * <p>
+	 * If the records type is abstract, should the record matching the implementing record type and
+	 * requested id be returned.<br>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
 	 * 
@@ -63,9 +65,32 @@ public interface RecordStorage {
 
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
-	boolean recordsExistForRecordType(String type);
-
 	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
 
-	int getTotalNumberOfRecords(String type, String id);
+	/**
+	 * getTotalNumberOfRecords should return the number of records that are stored under the
+	 * specified type. <br>
+	 * If the record type is abstract, should the returned number be that of all stored records for
+	 * all implementing record types that are children to the specified abstract type.
+	 * <p>
+	 * If a filter is specified should the total number of records reflect only those wich match the
+	 * filter. Filter information is based on the collectedTerms / storageTerms entered together
+	 * with the record when creating or updating the record.<br>
+	 * If the filter specifies a specific range of records to return, should that be ignored and the
+	 * returned total number of records be the total number of records stored for the type.<br>
+	 * If the filter contains no include or exclude information should all records be counted.
+	 * 
+	 * @param type
+	 *            A String with the record type
+	 * @param filter
+	 *            A {@link DataGroup} with filter inforamtion about which subset of records to
+	 *            count.
+	 * @return a long with the number of records that exist in storage for the specified type and
+	 *         filter
+	 */
+	long getTotalNumberOfRecords(String type, DataGroup filter);
+
+	// needs more thoughts... :(
+	// long getTotalNumberOfAbstractRecords(String type, List<String> implementingTypes,
+	// DataGroup filter);
 }
