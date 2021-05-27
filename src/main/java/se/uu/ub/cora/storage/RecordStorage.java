@@ -67,4 +67,5 @@ public interface RecordStorage {
 
 	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
 
+	int getTotalNumberOfRecords(String type, String id);
 }
