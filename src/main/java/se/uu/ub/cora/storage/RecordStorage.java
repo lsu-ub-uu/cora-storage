@@ -34,7 +34,7 @@ import se.uu.ub.cora.data.DataGroup;
  * details for recordTypes, and should be provided the information needed to handle abstract types,
  * without having to read and understand the set of existing record types.<br>
  * This is a work in progress as can be seen in
- * {@link #getTotalNumberOfAbstractRecords(String, List, DataGroup)}.
+ * {@link #getTotalNumberOfRecordsForAbstractType(String, List, DataGroup)}.
  * <p>
  * list of thins probably needed:<br>
  * <ul>
@@ -83,7 +83,7 @@ public interface RecordStorage {
 	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
 
 	/**
-	 * getTotalNumberOfRecords should return the number of records that are stored under the
+	 * getTotalNumberOfRecordsForType should return the number of records that are stored under the
 	 * specified type.
 	 * <p>
 	 * If a filter is specified the total number of records should reflect only those which match
@@ -102,10 +102,10 @@ public interface RecordStorage {
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
 	 */
-	long getTotalNumberOfRecords(String type, DataGroup filter);
+	long getTotalNumberOfRecordsForType(String type, DataGroup filter);
 
 	/**
-	 * getTotalNumberOfAbstractRecords should return the number of records that belong to the
+	 * getTotalNumberOfRecordsForAbstractType should return the number of records that belong to the
 	 * specified abstract type. The returned number should be all stored records for the specified
 	 * list of implementing record types.
 	 * <p>
@@ -127,6 +127,6 @@ public interface RecordStorage {
 	 * @return a long with the number of records that exist in storage for the specified list of
 	 *         implementing types and that matches the specified filter
 	 */
-	long getTotalNumberOfAbstractRecords(String abstractType, List<String> implementingTypes,
+	long getTotalNumberOfRecordsForAbstractType(String abstractType, List<String> implementingTypes,
 			DataGroup filter);
 }
