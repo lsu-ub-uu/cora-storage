@@ -38,6 +38,4 @@ public interface MetadataStorage {
 	Collection<DataGroup> getRecordTypes();
 
 	Collection<DataGroup> getCollectTerms();
-
-	// void deleteByTypeAndId(String recordType, String recordId);
 }
