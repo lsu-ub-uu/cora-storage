@@ -32,7 +32,7 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>4.0.0</coradata.version>
+		<coradata.version>5.0-SNAPSHOT</coradata.version>
 		<json.version>2.3.0</json.version>
 	</properties> 
 
