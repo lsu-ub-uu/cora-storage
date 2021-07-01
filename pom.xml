@@ -32,8 +32,8 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>5.0-SNAPSHOT</coradata.version>
-		<json.version>2.3.0</json.version>
+		<coradata.version>5.0.0</coradata.version>
+		<json.version>2.4.0</json.version>
 	</properties> 
 
 	<scm>
