@@ -30,13 +30,15 @@ import se.uu.ub.cora.data.DataGroup;
  * enabling different storage solutions to be developed and used depending on the needs of the
  * current system.
  * <p>
+ * Implementations of RecordStorage MUST be threadsafe.
+ * <p>
  * The end goal is that implementing storage solutions should not have to know about implementations
  * details for recordTypes, and should be provided the information needed to handle abstract types,
  * without having to read and understand the set of existing record types.<br>
  * This is a work in progress as can be seen in
  * {@link #getTotalNumberOfRecordsForAbstractType(String, List, DataGroup)}.
  * <p>
- * list of thins probably needed:<br>
+ * list of things probably needed:<br>
  * <ul>
  * <li>read needs a new method readAbstractList(String abstractType, List<String> implementingTypes,
  * DataGroup filter)</li>

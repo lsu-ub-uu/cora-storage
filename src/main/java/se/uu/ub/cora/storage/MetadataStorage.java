@@ -26,6 +26,8 @@ import se.uu.ub.cora.data.DataGroup;
 /**
  * MetadataStorage is the gateway interface from the metadata system to the storage system. This
  * interface makes the storage details decoupled from the logic surrounding the metadata.
+ * <p>
+ * Implementations of RecordStorage MUST be threadsafe.
  */
 public interface MetadataStorage {
 
