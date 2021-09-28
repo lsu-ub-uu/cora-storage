@@ -22,14 +22,28 @@ import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
 
+/**
+ * StorageReadResult contains the result of a read from storage. It consists of a list with the
+ * requested records, a number start which indicate where this lists first record is in the list of
+ * matches if a subset of all matches where requested and a number with the total number of matches
+ * that the read request generated from storage.
+ */
 public final class StorageReadResult {
-
+	/**
+	 * start is the number where this lists first record is in the list of matches if a subset of
+	 * all matches where requested. Counted such as the first match is generates a start of 0.
+	 */
 	public long start;
+
 	/**
 	 * totalNumberOfMatches contains the total number of records in storage for the recordType,
 	 * matching any provided filter.
 	 */
 	public long totalNumberOfMatches;
+
+	/**
+	 * listOfDataGroups is a list records that match the request that has been made
+	 */
 	public List<DataGroup> listOfDataGroups;
 
 }

@@ -64,19 +64,46 @@ public interface RecordStorage {
 	 */
 	DataGroup read(String type, String id);
 
-	void create(String type, String id, DataGroup record, DataGroup collectedTerms,
+	void create(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
 	void deleteByTypeAndId(String type, String id);
 
 	boolean linksExistForRecord(String type, String id);
 
-	void update(String type, String id, DataGroup record, DataGroup collectedTerms,
+	void update(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
+	/**
+	 * readList should return, from storage, the records that has the corresponding type and matches
+	 * the provided filter.
+	 * <p>
+	 * If a filter is specified should the returned records only be those which match the
+	 * filter.<br>
+	 * Filter information is based on the collectedTerms / storageTerms entered together with the
+	 * record when creating or updating the record. If the filter contains include or exclude
+	 * information should only those records that match the include and exclude parameters be
+	 * returned.<br>
+	 * If the filter specifies a specific range of records to return, should only the records that
+	 * are inside the specified range be returned.<br>
+	 * If the filter contains include or exclude information should only those records that match
+	 * the include and exclude parameters be returned.
+	 * 
+	 * @param type
+	 *            A String with the type of records to return
+	 * @param filter
+	 *            A {@link DataGroup} with filter information about which subset of records to
+	 *            return.
+	 * @return A StorageReadResult with the records that exist in storage for the specified type and
+	 *         filter
+	 */
 	StorageReadResult readList(String type, DataGroup filter);
 
 	StorageReadResult readAbstractList(String type, DataGroup filter);
+
+	// TODO : New method, see description on top.
+	// StorageReadResult readAbstractList(String abstractType, List<String> implementingTypes,
+	// DataGroup filter);
 
 	DataGroup readLinkList(String type, String id);
 
@@ -99,7 +126,7 @@ public interface RecordStorage {
 	 * @param type
 	 *            A String with the record type
 	 * @param filter
-	 *            A {@link DataGroup} with filter inforamtion about which subset of records to
+	 *            A {@link DataGroup} with filter information about which subset of records to
 	 *            count.
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
