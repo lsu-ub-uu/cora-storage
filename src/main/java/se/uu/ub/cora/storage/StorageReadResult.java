@@ -37,7 +37,7 @@ public final class StorageReadResult {
 
 	/**
 	 * totalNumberOfMatches contains the total number of records in storage for the recordType,
-	 * matching any provided filter.
+	 * matching any provided filter, ignoring fromNo and toNo.
 	 */
 	public long totalNumberOfMatches;
 

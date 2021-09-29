@@ -52,7 +52,8 @@ public interface RecordStorage {
 	 * read should return, from storage, the record that has the corresponding type and id.
 	 * <p>
 	 * If the records type is abstract, should the record matching the implementing record type and
-	 * requested id be returned.<br>
+	 * requested id be returned.
+	 * <p>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
 	 * 
@@ -85,9 +86,10 @@ public interface RecordStorage {
 	 * information should only those records that match the include and exclude parameters be
 	 * returned.<br>
 	 * If the filter specifies a specific range of records to return, should only the records that
-	 * are inside the specified range be returned.<br>
-	 * If the filter contains include or exclude information should only those records that match
-	 * the include and exclude parameters be returned.
+	 * are inside the specified range and match any specified filter be returned.<br>
+	 * <p>
+	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested type of records can not be found.
 	 * 
 	 * @param type
 	 *            A String with the type of records to return
@@ -120,8 +122,11 @@ public interface RecordStorage {
 	 * with the record when creating or updating the record.<br>
 	 * If the filter specifies a specific range of records to return, the range should be ignored
 	 * and the returned total number of records should be the total number of records stored for the
-	 * type.<br>
+	 * type that match the provided filter.<br>
 	 * If the filter contains no include or exclude information should all records be counted.
+	 * <p>
+	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested type of records can not be found.
 	 * 
 	 * @param type
 	 *            A String with the record type
@@ -143,8 +148,11 @@ public interface RecordStorage {
 	 * with the record when creating or updating the record.<br>
 	 * If the filter specifies a specific range of records to return, the range should be ignored
 	 * and the returned total number of records should be the total number of records stored for the
-	 * abstract type.<br>
+	 * abstract type that match the provided filter.<br>
 	 * If the filter contains no include or exclude information should all records be counted.
+	 * <p>
+	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested type of records can not be found.
 	 * 
 	 * @param abstractType
 	 *            A String with the abstract record type
