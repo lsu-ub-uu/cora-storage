@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -19,14 +19,26 @@
 
 package se.uu.ub.cora.storage;
 
+import static org.testng.Assert.assertEquals;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class RecordConflictTest {
+public class RecordConflictExceptionTest {
 	@Test
 	public void testInit() {
-		RecordConflictException conflict = new RecordConflictException("message");
+		RecordConflictException conflict = RecordConflictException.withMessage("message");
 
 		Assert.assertEquals(conflict.getMessage(), "message");
+	}
+
+	@Test
+	public void testInitWithException() {
+		Exception exception = new Exception();
+		RecordConflictException conflict = RecordConflictException
+				.withMessageAndException("message", exception);
+
+		assertEquals(conflict.getMessage(), "message");
+		assertEquals(conflict.getCause(), exception);
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2020 Uppsala University Library
+ * Copyright 2015, 2020, 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -30,7 +30,10 @@ import se.uu.ub.cora.data.DataGroup;
  * enabling different storage solutions to be developed and used depending on the needs of the
  * current system.
  * <p>
- * Implementations of RecordStorage MUST be threadsafe.
+ * Instances of RecordStorage SHOULD be accessed through
+ * {@link RecordStorageProvider#getRecordStorage()} for each thread that needs access to
+ * RecordStorage. Implementations of RecordStorage SHOULD clearly state if they are threadsafe or
+ * not, to enable RecordStorageProvider to return the same or new instances as needed.
  * <p>
  * The end goal is that implementing storage solutions should not have to know about implementations
  * details for recordTypes, and should be provided the information needed to handle abstract types,
@@ -65,6 +68,35 @@ public interface RecordStorage {
 	 */
 	DataGroup read(String type, String id);
 
+	/**
+	 * create stores the provided dataRecord in storage. CollectedTerms, linkList and dataDivider is
+	 * stored in relationship to type and id.
+	 * <p>
+	 * The terms (key value pairs) found in collectedTerms should be stored in such a way so they
+	 * can be used to filter data when reading.
+	 * <p>
+	 * The links found in linkList should stored in such a way so they can be used in the
+	 * {@link #readLinkList(String, String)} method to retreive all records that has links pointing
+	 * to a specified record.
+	 * <p>
+	 * If a record matching type and id exists in storage since before MUST a
+	 * {@link RecordConflictException} be thrown, indicating that the requested record can not be
+	 * created.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param dataRecord
+	 *            A {@link DataGroup} with the records data
+	 * @param collectedTerms
+	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
+	 *            later read requests
+	 * @param linkList
+	 *            A {@link DataGroup} with a list of records that this record has links to
+	 * @param dataDivider
+	 *            A String representing the system the record belongs to.
+	 */
 	void create(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
@@ -104,8 +136,7 @@ public interface RecordStorage {
 	StorageReadResult readAbstractList(String type, DataGroup filter);
 
 	// TODO : New method, see description on top.
-	// StorageReadResult readAbstractList(String abstractType, List<String> implementingTypes,
-	// DataGroup filter);
+	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
 
 	DataGroup readLinkList(String type, String id);
 

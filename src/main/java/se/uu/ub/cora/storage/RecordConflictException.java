@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -19,12 +19,25 @@
 
 package se.uu.ub.cora.storage;
 
-public class RecordConflictException extends RuntimeException{
+public class RecordConflictException extends RuntimeException {
 
 	private static final long serialVersionUID = 2241064467145940402L;
-	public RecordConflictException(String message) {
+
+	public static RecordConflictException withMessage(String message) {
+		return new RecordConflictException(message);
+	}
+
+	public static RecordConflictException withMessageAndException(String message,
+			Exception exception) {
+		return new RecordConflictException(message, exception);
+	}
+
+	private RecordConflictException(String message) {
 		super(message);
 	}
 
+	private RecordConflictException(String message, Exception exception) {
+		super(message, exception);
+	}
 
 }
