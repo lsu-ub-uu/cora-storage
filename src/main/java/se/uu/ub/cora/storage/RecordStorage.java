@@ -104,6 +104,36 @@ public interface RecordStorage {
 
 	boolean linksExistForRecord(String type, String id);
 
+	/**
+	 * update updates the existing dataRecord in storage with the new provided dataRecord.
+	 * CollectedTerms, linkList and dataDivider are updated in relationship to type and id. When the
+	 * update is complete should the stored data only contain the information that was provided in
+	 * this update call.
+	 * <p>
+	 * The terms (key value pairs) found in collectedTerms should be stored in such a way so they
+	 * can be used to filter data when reading.
+	 * <p>
+	 * The links found in linkList should stored in such a way so they can be used in the
+	 * {@link #readLinkList(String, String)} method to retreive all records that has links pointing
+	 * to a specified record.
+	 * <p>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the record to update can not be found.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param dataRecord
+	 *            A {@link DataGroup} with the records data
+	 * @param collectedTerms
+	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
+	 *            later read requests
+	 * @param linkList
+	 *            A {@link DataGroup} with a list of records that this record has links to
+	 * @param dataDivider
+	 *            A String representing the system the record belongs to.
+	 */
 	void update(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
