@@ -27,7 +27,9 @@ public interface RecordStorageProvider extends SelectOrder {
 
 	/**
 	 * startUsingInitInfo is expected to be called on system startup to allow implementing classes
-	 * to startup the implementing RecordStorage as needed
+	 * to startup the implementing RecordStorage as needed.
+	 * <p>
+	 * If startup fails MUST an {@link StorageException} be thrown.
 	 */
 	void startUsingInitInfo(Map<String, String> initInfo);
 
@@ -37,6 +39,9 @@ public interface RecordStorageProvider extends SelectOrder {
 	 * return instances or the same instance, depending on the implementation. It must be possible
 	 * to use the currently returned instance without considering if other calls has been made to
 	 * this method.
+	 * <p>
+	 * If {@link #startUsingInitInfo(Map)} has not been called before this method and the
+	 * implementation does not work without it MUST an {@link StorageException} be thrown.
 	 * 
 	 * @return A RecordStorage that gives access to storage for records
 	 */
