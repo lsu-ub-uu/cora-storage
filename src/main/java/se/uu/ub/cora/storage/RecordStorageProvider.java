@@ -30,6 +30,8 @@ public interface RecordStorageProvider extends SelectOrder {
 	 * to startup the implementing RecordStorage as needed.
 	 * <p>
 	 * If startup fails MUST an {@link StorageException} be thrown.
+	 * <p>
+	 * The implementation of the method has to be threadsafe.
 	 */
 	void startUsingInitInfo(Map<String, String> initInfo);
 
