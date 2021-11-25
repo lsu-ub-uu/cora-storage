@@ -100,6 +100,17 @@ public interface RecordStorage {
 	void create(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
 			DataGroup linkList, String dataDivider);
 
+	/**
+	 * deleteByTypeAndId deletes the existing dataRecord from storage.
+	 * <p>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the record to delete can not be found.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 */
 	void deleteByTypeAndId(String type, String id);
 
 	boolean linksExistForRecord(String type, String id);
