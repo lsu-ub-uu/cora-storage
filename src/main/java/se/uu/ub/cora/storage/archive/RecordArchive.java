@@ -37,8 +37,11 @@ public interface RecordArchive {
 	/**
 	 * create stores the record in the archive.
 	 * <p>
-	 * If a record matching type and id already exists in storage a {@link RecordConflictException}
-	 * is thrown, indicating that the requested record can not be created.
+	 * If a record matching type and id already exists in storage MUST a
+	 * {@link RecordConflictException} be thrown, indicating that the requested record can not be
+	 * created.
+	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
 	 * @param type
 	 *            A String with the records type
