@@ -20,6 +20,7 @@ package se.uu.ub.cora.storage.archive;
 
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.storage.RecordConflictException;
+import se.uu.ub.cora.storage.RecordNotFoundException;
 
 /**
  * RecordArchive is the interface that defines how records are stored and retreived from a Cora
@@ -37,7 +38,7 @@ public interface RecordArchive {
 	/**
 	 * create stores the record in the archive.
 	 * <p>
-	 * If a record matching type and id already exists in storage MUST a
+	 * If a record matching type and id already exists in the archive MUST a
 	 * {@link RecordConflictException} be thrown, indicating that the requested record can not be
 	 * created.
 	 * <p>
@@ -51,4 +52,22 @@ public interface RecordArchive {
 	 *            A {@link DataGroup} with the records data
 	 */
 	void create(String type, String id, DataGroup dataRecord);
+
+	/**
+	 * update stores the record in the archive.
+	 * <p>
+	 * If a record matching type and id does not exist in the archive MUST a
+	 * {@link RecordNotFoundException} be thrown, indicating that the requested record can not be
+	 * updated.
+	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param dataRecord
+	 *            A {@link DataGroup} with the records data
+	 */
+	void update(String type, String id, DataGroup dataRecord);
 }
