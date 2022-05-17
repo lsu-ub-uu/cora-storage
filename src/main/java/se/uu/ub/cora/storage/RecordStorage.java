@@ -43,7 +43,9 @@ import se.uu.ub.cora.data.DataGroup;
  * <p>
  * list of things probably needed:<br>
  * <ul>
- * <li>read needs a new method readAbstractList(String abstractType, List<String> implementingTypes,
+ * <li>read needs a new method read(List<String> possibleImplementingTypes,
+ * DataGroup filter)</li>
+ * <li>readList needs a new method readAbstractList(String abstractType, List<String> implementingTypes,
  * DataGroup filter)</li>
  * <li>readAbstractList needs a new parameter List<String> implementingTypes</li>
  * </ul>
