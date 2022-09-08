@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.collectterms.StorageTerm;
 
 /**
  * RecordStorage is the interface that defines how records are stored and retreived from a Cora
@@ -139,7 +140,7 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @param dataRecord
 	 *            A {@link DataGroup} with the records data
-	 * @param collectedTerms
+	 * @param storageTerms
 	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
 	 *            later read requests
 	 * @param linkList
@@ -147,7 +148,7 @@ public interface RecordStorage {
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void update(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
+	void update(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
 			DataGroup linkList, String dataDivider);
 
 	/**
