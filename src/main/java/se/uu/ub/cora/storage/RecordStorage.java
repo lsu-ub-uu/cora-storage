@@ -44,10 +44,9 @@ import se.uu.ub.cora.data.collectterms.StorageTerm;
  * <p>
  * list of things probably needed:<br>
  * <ul>
- * <li>read needs a new method read(List<String> possibleImplementingTypes,
- * DataGroup filter)</li>
- * <li>readList needs a new method readAbstractList(String abstractType, List<String> implementingTypes,
- * DataGroup filter)</li>
+ * <li>read needs a new method read(List<String> possibleImplementingTypes, DataGroup filter)</li>
+ * <li>readList needs a new method readAbstractList(String abstractType, List<String>
+ * implementingTypes, DataGroup filter)</li>
  * <li>readAbstractList needs a new parameter List<String> implementingTypes</li>
  * </ul>
  * 
@@ -92,15 +91,14 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @param dataRecord
 	 *            A {@link DataGroup} with the records data
-	 * @param collectedTerms
-	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
-	 *            later read requests
+	 * @param storageTerms
+	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
 	 * @param linkList
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void create(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
+	void create(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
 			DataGroup linkList, String dataDivider);
 
 	/**
@@ -141,8 +139,7 @@ public interface RecordStorage {
 	 * @param dataRecord
 	 *            A {@link DataGroup} with the records data
 	 * @param storageTerms
-	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
-	 *            later read requests
+	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
 	 * @param linkList
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
