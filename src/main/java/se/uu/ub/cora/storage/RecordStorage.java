@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2020, 2021 Uppsala University Library
+ * Copyright 2015, 2020, 2021, 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -23,7 +23,8 @@ import java.util.Collection;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
-import se.uu.ub.cora.data.collectterms.StorageTerm;
+import se.uu.ub.cora.data.collected.RecordToRecordLink;
+import se.uu.ub.cora.data.collected.StorageTerm;
 
 /**
  * RecordStorage is the interface that defines how records are stored and retreived from a Cora
@@ -93,13 +94,13 @@ public interface RecordStorage {
 	 *            A {@link DataGroup} with the records data
 	 * @param storageTerms
 	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
-	 * @param linkList
+	 * @param links
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
 	void create(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			DataGroup linkList, String dataDivider);
+			List<RecordToRecordLink> links, String dataDivider);
 
 	/**
 	 * deleteByTypeAndId deletes the existing dataRecord from storage.
@@ -140,13 +141,13 @@ public interface RecordStorage {
 	 *            A {@link DataGroup} with the records data
 	 * @param storageTerms
 	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
-	 * @param linkList
+	 * @param links
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
 	void update(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			DataGroup linkList, String dataDivider);
+			List<RecordToRecordLink> links, String dataDivider);
 
 	/**
 	 * readList should return, from storage, the records that has the corresponding type and matches
