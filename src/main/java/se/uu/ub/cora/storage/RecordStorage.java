@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
-import se.uu.ub.cora.data.collected.RecordToRecordLink;
+import se.uu.ub.cora.data.collected.Link;
 import se.uu.ub.cora.data.collected.StorageTerm;
 
 /**
@@ -100,7 +100,7 @@ public interface RecordStorage {
 	 *            A String representing the system the record belongs to.
 	 */
 	void create(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			List<RecordToRecordLink> links, String dataDivider);
+			List<Link> links, String dataDivider);
 
 	/**
 	 * deleteByTypeAndId deletes the existing dataRecord from storage.
@@ -147,7 +147,7 @@ public interface RecordStorage {
 	 *            A String representing the system the record belongs to.
 	 */
 	void update(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			List<RecordToRecordLink> links, String dataDivider);
+			List<Link> links, String dataDivider);
 
 	/**
 	 * readList should return, from storage, the records that has the corresponding type and matches
@@ -180,7 +180,7 @@ public interface RecordStorage {
 	// TODO : New method, see description on top.
 	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
 
-	DataGroup readLinkList(String type, String id);
+	List<Link> readLinkList(String type, String id);
 
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
