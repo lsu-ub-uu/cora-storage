@@ -180,8 +180,16 @@ public interface RecordStorage {
 	// TODO : New method, see description on top.
 	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
 
-	List<Link> readLinkList(String type, String id);
-
+	/**
+	 * TODO: change name to getLinksToRecord
+	 * </p>
+	 * generateLinkCollectionPointingToRecord gets a collection of all links pointing to a specified
+	 * record
+	 * 
+	 * @param type
+	 * @param id
+	 * @return
+	 */
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
 	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
