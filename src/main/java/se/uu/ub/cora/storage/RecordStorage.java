@@ -115,6 +115,17 @@ public interface RecordStorage {
 	 */
 	void deleteByTypeAndId(String type, String id);
 
+	/**
+	 * linksExistForRecord returns if there are any other records that link to the record specified
+	 * by the entered type and id.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A boolean, true if there are any links pointing to this record, else is false
+	 *         returned
+	 */
 	boolean linksExistForRecord(String type, String id);
 
 	/**
@@ -183,11 +194,13 @@ public interface RecordStorage {
 	/**
 	 * TODO: change name to getLinksToRecord
 	 * </p>
-	 * generateLinkCollectionPointingToRecord gets a collection of all links pointing to a specified
-	 * record
+	 * generateLinkCollectionPointingToRecord returns a collection of all links from other records,
+	 * pointing to the record specified by type and id.
 	 * 
 	 * @param type
+	 *            A String with the records type
 	 * @param id
+	 *            A String with the records id
 	 * @return
 	 */
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
@@ -225,8 +238,8 @@ public interface RecordStorage {
 	 * list of implementing record types.
 	 * <p>
 	 * If a filter is specified the total number of records should reflect only those which match
-	 * the filter. Filter information is based on the collectedTerms / storageTerms entered together
-	 * with the record when creating or updating the record.<br>
+	 * the filter. Filter information is based on the storageTerms entered together with the record
+	 * when creating or updating the record.<br>
 	 * If the filter specifies a specific range of records to return, the range should be ignored
 	 * and the returned total number of records should be the total number of records stored for the
 	 * abstract type that match the provided filter.<br>
