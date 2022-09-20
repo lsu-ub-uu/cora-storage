@@ -103,7 +103,8 @@ public interface RecordStorage {
 			List<Link> links, String dataDivider);
 
 	/**
-	 * deleteByTypeAndId deletes the existing dataRecord from storage.
+	 * deleteByTypeAndId deletes the existing dataRecord from storage. Any to the record associated
+	 * storageTerms and links should also be removed from storage.
 	 * <p>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the record to delete can not be found.
