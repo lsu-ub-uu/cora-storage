@@ -173,24 +173,29 @@ public interface RecordStorage {
 	 * returned.<br>
 	 * If the filter specifies a specific range of records to return, should only the records that
 	 * are inside the specified range and match any specified filter be returned.<br>
-	 * <p>
-	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
-	 * indicating that the requested type of records can not be found.
 	 * 
-	 * @param type
-	 *            A String with the type of records to return
+	 * @param types
+	 *            A list of strings with the types of records to read.
 	 * @param filter
 	 *            A {@link DataGroup} with filter information about which subset of records to
 	 *            return.
-	 * @return A StorageReadResult with the records that exist in storage for the specified type and
-	 *         filter
+	 * @return A StorageReadResult with the records that exist in storage for the specified types
+	 *         and filter
 	 */
-	StorageReadResult readList(String type, DataGroup filter);
+	StorageReadResult readList(List<String> types, DataGroup filter);
 
-	StorageReadResult readAbstractList(String type, DataGroup filter);
-
-	// TODO : New method, see description on top.
-	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
+	/**
+	 * recordExistsForListOfImplementingRecordTypesAndRecordId
+	 * 
+	 * @param types
+	 *            A List<String> with a list of recordTypes to see if any one of them have the
+	 *            requested id.
+	 * 
+	 * @param id
+	 *            A string with the id of th record to be found.
+	 * @return A boolean wether the the record id combined with any of the types is found or not.
+	 */
+	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
 
 	/**
 	 * TODO: change name to getLinksToRecord
@@ -205,8 +210,6 @@ public interface RecordStorage {
 	 * @return
 	 */
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
-
-	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
 
 	/**
 	 * getTotalNumberOfRecordsForType should return the number of records that are stored under the
@@ -231,34 +234,6 @@ public interface RecordStorage {
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
 	 */
-	long getTotalNumberOfRecordsForType(String type, DataGroup filter);
+	long getTotalNumberOfRecordsForType(List<String> type, DataGroup filter);
 
-	/**
-	 * getTotalNumberOfRecordsForAbstractType should return the number of records that belong to the
-	 * specified abstract type. The returned number should be all stored records for the specified
-	 * list of implementing record types.
-	 * <p>
-	 * If a filter is specified the total number of records should reflect only those which match
-	 * the filter. Filter information is based on the storageTerms entered together with the record
-	 * when creating or updating the record.<br>
-	 * If the filter specifies a specific range of records to return, the range should be ignored
-	 * and the returned total number of records should be the total number of records stored for the
-	 * abstract type that match the provided filter.<br>
-	 * If the filter contains no include or exclude information should all records be counted.
-	 * <p>
-	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
-	 * indicating that the requested type of records can not be found.
-	 * 
-	 * @param abstractType
-	 *            A String with the abstract record type
-	 * @param implementingTypes
-	 *            A List with the implementing record types for the specified abstract type
-	 * @param filter
-	 *            A {@link DataGroup} with filter information about which subset of records to
-	 *            count.
-	 * @return a long with the number of records that exist in storage for the specified list of
-	 *         implementing types and that matches the specified filter
-	 */
-	long getTotalNumberOfRecordsForAbstractType(String abstractType, List<String> implementingTypes,
-			DataGroup filter);
 }
