@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2020, 2021 Uppsala University Library
+ * Copyright 2015, 2020, 2021, 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.collected.Link;
+import se.uu.ub.cora.data.collected.StorageTerm;
 
 /**
  * RecordStorage is the interface that defines how records are stored and retreived from a Cora
@@ -43,10 +45,9 @@ import se.uu.ub.cora.data.DataGroup;
  * <p>
  * list of things probably needed:<br>
  * <ul>
- * <li>read needs a new method read(List<String> possibleImplementingTypes,
- * DataGroup filter)</li>
- * <li>readList needs a new method readAbstractList(String abstractType, List<String> implementingTypes,
- * DataGroup filter)</li>
+ * <li>read needs a new method read(List<String> possibleImplementingTypes, DataGroup filter)</li>
+ * <li>readList needs a new method readAbstractList(String abstractType, List<String>
+ * implementingTypes, DataGroup filter)</li>
  * <li>readAbstractList needs a new parameter List<String> implementingTypes</li>
  * </ul>
  * 
@@ -91,19 +92,19 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @param dataRecord
 	 *            A {@link DataGroup} with the records data
-	 * @param collectedTerms
-	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
-	 *            later read requests
-	 * @param linkList
+	 * @param storageTerms
+	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
+	 * @param links
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void create(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
-			DataGroup linkList, String dataDivider);
+	void create(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
+			List<Link> links, String dataDivider);
 
 	/**
-	 * deleteByTypeAndId deletes the existing dataRecord from storage.
+	 * deleteByTypeAndId deletes the existing dataRecord from storage. Any to the record associated
+	 * storageTerms and links should also be removed from storage.
 	 * <p>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the record to delete can not be found.
@@ -115,6 +116,17 @@ public interface RecordStorage {
 	 */
 	void deleteByTypeAndId(String type, String id);
 
+	/**
+	 * linksExistForRecord returns if there are any other records that link to the record specified
+	 * by the entered type and id.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A boolean, true if there are any links pointing to this record, else is false
+	 *         returned
+	 */
 	boolean linksExistForRecord(String type, String id);
 
 	/**
@@ -139,16 +151,15 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @param dataRecord
 	 *            A {@link DataGroup} with the records data
-	 * @param collectedTerms
-	 *            A {@link DataGroup} A collection of key value pairs that can be used to filter
-	 *            later read requests
-	 * @param linkList
+	 * @param storageTerms
+	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
+	 * @param links
 	 *            A {@link DataGroup} with a list of records that this record has links to
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void update(String type, String id, DataGroup dataRecord, DataGroup collectedTerms,
-			DataGroup linkList, String dataDivider);
+	void update(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
+			List<Link> links, String dataDivider);
 
 	/**
 	 * readList should return, from storage, the records that has the corresponding type and matches
@@ -181,8 +192,18 @@ public interface RecordStorage {
 	// TODO : New method, see description on top.
 	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
 
-	DataGroup readLinkList(String type, String id);
-
+	/**
+	 * TODO: change name to getLinksToRecord
+	 * </p>
+	 * generateLinkCollectionPointingToRecord returns a collection of all links from other records,
+	 * pointing to the record specified by type and id.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return
+	 */
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
 	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
@@ -218,8 +239,8 @@ public interface RecordStorage {
 	 * list of implementing record types.
 	 * <p>
 	 * If a filter is specified the total number of records should reflect only those which match
-	 * the filter. Filter information is based on the collectedTerms / storageTerms entered together
-	 * with the record when creating or updating the record.<br>
+	 * the filter. Filter information is based on the storageTerms entered together with the record
+	 * when creating or updating the record.<br>
 	 * If the filter specifies a specific range of records to return, the range should be ignored
 	 * and the returned total number of records should be the total number of records stored for the
 	 * abstract type that match the provided filter.<br>
