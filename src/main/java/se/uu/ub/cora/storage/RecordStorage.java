@@ -173,6 +173,7 @@ public interface RecordStorage {
 	 * returned.<br>
 	 * If the filter specifies a specific range of records to return, should only the records that
 	 * are inside the specified range and match any specified filter be returned.<br>
+	 * If no records are found should a StorageReadResult with no results be returned.
 	 * 
 	 * @param types
 	 *            A list of strings with the types of records to read.
@@ -185,14 +186,21 @@ public interface RecordStorage {
 	StorageReadResult readList(List<String> types, DataGroup filter);
 
 	/**
-	 * recordExistsForListOfImplementingRecordTypesAndRecordId
+	 * recordExistsForListOfImplementingRecordTypesAndRecordId returns true if a record exists in
+	 * storage for one of the specified types and the specified id.
+	 * </p>
+	 * The list of types is intended to be used in two ways.
+	 * <ol>
+	 * <li>A single implenting type</li>
+	 * <li>A list of all implenting types, if the type looked for is abstract</li>
+	 * </ol>
 	 * 
 	 * @param types
 	 *            A List<String> with a list of recordTypes to see if any one of them have the
 	 *            requested id.
 	 * 
 	 * @param id
-	 *            A string with the id of th record to be found.
+	 *            A string with the id of the record to be found.
 	 * @return A boolean wether the the record id combined with any of the types is found or not.
 	 */
 	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
@@ -212,8 +220,8 @@ public interface RecordStorage {
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
 	/**
-	 * getTotalNumberOfRecordsForType should return the number of records that are stored under the
-	 * specified type.
+	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
+	 * specified types.
 	 * <p>
 	 * If a filter is specified the total number of records should reflect only those which match
 	 * the filter. Filter information is based on the collectedTerms / storageTerms entered together
@@ -226,14 +234,14 @@ public interface RecordStorage {
 	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested type of records can not be found.
 	 * 
-	 * @param type
-	 *            A String with the record type
+	 * @param types
+	 *            A List of strings with the record type
 	 * @param filter
 	 *            A {@link DataGroup} with filter information about which subset of records to
 	 *            count.
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
 	 */
-	long getTotalNumberOfRecordsForType(List<String> type, DataGroup filter);
+	long getTotalNumberOfRecordsForTypes(List<String> types, DataGroup filter);
 
 }
