@@ -63,13 +63,13 @@ public interface RecordStorage {
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
 	 * 
-	 * @param type
-	 *            A String with the records type
+	 * @param types
+	 *            A List of string with the records type
 	 * @param id
 	 *            A String with the records id
 	 * @return A {@link DataGroup} with the requested records data
 	 */
-	DataGroup read(String type, String id);
+	DataGroup read(List<String> types, String id);
 
 	/**
 	 * create stores the provided dataRecord in storage. CollectedTerms, linkList and dataDivider is
@@ -172,7 +172,8 @@ public interface RecordStorage {
 	 * information should only those records that match the include and exclude parameters be
 	 * returned.<br>
 	 * If the filter specifies a specific range of records to return, should only the records that
-	 * are inside the specified range and match any specified filter be returned.<br>
+	 * are inside the specified range and match any specified filter be returned.
+	 * </p>
 	 * If no records are found should a StorageReadResult with no results be returned.
 	 * 
 	 * @param types
