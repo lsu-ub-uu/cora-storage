@@ -55,16 +55,25 @@ import se.uu.ub.cora.data.collected.StorageTerm;
 public interface RecordStorage {
 
 	/**
-	 * read should return, from storage, the record that has the corresponding type and id.
-	 * <p>
-	 * If the records type is abstract, should the record matching the implementing record type and
-	 * requested id be returned.
+	 * read should return, from storage, the record that has one of the specified types and the
+	 * specified id.
+	 * </p>
+	 * The list of types is intended to be used in two ways.
+	 * <ol>
+	 * <li>A single implenting type</li>
+	 * <li>A list of all implementing types, if the type looked for is abstract</li>
+	 * </ol>
 	 * <p>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
+	 * </p>
+	 * If more than one record matching type and id is found MUST a {@link RecordNotFoundException}
+	 * be thrown, indicating that the requested record is a duplicate, this should not normally
+	 * happen as the a recordId should be unique for an abstract type, and if there is more than one
+	 * type in the types list should they all be children to a common abstract type.
 	 * 
 	 * @param types
-	 *            A List of string with the records type
+	 *            A List<String> with a list of recordTypes
 	 * @param id
 	 *            A String with the records id
 	 * @return A {@link DataGroup} with the requested records data
@@ -192,7 +201,7 @@ public interface RecordStorage {
 	 * </p>
 	 * The list of types is intended to be used in two ways.
 	 * <ol>
-	 * <li>A single implenting type</li>
+	 * <li>A single implementing type</li>
 	 * <li>A list of all implenting types, if the type looked for is abstract</li>
 	 * </ol>
 	 * 
