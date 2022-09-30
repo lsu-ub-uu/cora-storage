@@ -55,21 +55,30 @@ import se.uu.ub.cora.data.collected.StorageTerm;
 public interface RecordStorage {
 
 	/**
-	 * read should return, from storage, the record that has the corresponding type and id.
-	 * <p>
-	 * If the records type is abstract, should the record matching the implementing record type and
-	 * requested id be returned.
+	 * read should return, from storage, the record that has one of the specified types and the
+	 * specified id.
+	 * </p>
+	 * The list of types is intended to be used in two ways.
+	 * <ol>
+	 * <li>A single implenting type</li>
+	 * <li>A list of all implementing types, if the type looked for is abstract</li>
+	 * </ol>
 	 * <p>
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
+	 * </p>
+	 * If more than one record matching type and id is found MUST a {@link RecordNotFoundException}
+	 * be thrown, indicating that the requested record is a duplicate, this should not normally
+	 * happen as the a recordId should be unique for an abstract type, and if there is more than one
+	 * type in the types list should they all be children to a common abstract type.
 	 * 
-	 * @param type
-	 *            A String with the records type
+	 * @param types
+	 *            A List<String> with a list of recordTypes
 	 * @param id
 	 *            A String with the records id
 	 * @return A {@link DataGroup} with the requested records data
 	 */
-	DataGroup read(String type, String id);
+	DataGroup read(List<String> types, String id);
 
 	/**
 	 * create stores the provided dataRecord in storage. CollectedTerms, linkList and dataDivider is
@@ -172,25 +181,39 @@ public interface RecordStorage {
 	 * information should only those records that match the include and exclude parameters be
 	 * returned.<br>
 	 * If the filter specifies a specific range of records to return, should only the records that
-	 * are inside the specified range and match any specified filter be returned.<br>
-	 * <p>
-	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
-	 * indicating that the requested type of records can not be found.
+	 * are inside the specified range and match any specified filter be returned.
+	 * </p>
+	 * If no records are found should a StorageReadResult with no results be returned.
 	 * 
-	 * @param type
-	 *            A String with the type of records to return
+	 * @param types
+	 *            A list of strings with the types of records to read.
 	 * @param filter
 	 *            A {@link DataGroup} with filter information about which subset of records to
 	 *            return.
-	 * @return A StorageReadResult with the records that exist in storage for the specified type and
-	 *         filter
+	 * @return A StorageReadResult with the records that exist in storage for the specified types
+	 *         and filter
 	 */
-	StorageReadResult readList(String type, DataGroup filter);
+	StorageReadResult readList(List<String> types, DataGroup filter);
 
-	StorageReadResult readAbstractList(String type, DataGroup filter);
-
-	// TODO : New method, see description on top.
-	// StorageReadResult readAbstractList(List<String> implementingTypes, DataGroup filter);
+	/**
+	 * recordExistsForListOfImplementingRecordTypesAndRecordId returns true if a record exists in
+	 * storage for one of the specified types and the specified id.
+	 * </p>
+	 * The list of types is intended to be used in two ways.
+	 * <ol>
+	 * <li>A single implementing type</li>
+	 * <li>A list of all implenting types, if the type looked for is abstract</li>
+	 * </ol>
+	 * 
+	 * @param types
+	 *            A List<String> with a list of recordTypes to see if any one of them have the
+	 *            requested id.
+	 * 
+	 * @param id
+	 *            A string with the id of the record to be found.
+	 * @return A boolean wether the the record id combined with any of the types is found or not.
+	 */
+	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
 
 	/**
 	 * TODO: change name to getLinksToRecord
@@ -206,11 +229,9 @@ public interface RecordStorage {
 	 */
 	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
 
-	boolean recordExistsForAbstractOrImplementingRecordTypeAndRecordId(String type, String id);
-
 	/**
-	 * getTotalNumberOfRecordsForType should return the number of records that are stored under the
-	 * specified type.
+	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
+	 * specified types.
 	 * <p>
 	 * If a filter is specified the total number of records should reflect only those which match
 	 * the filter. Filter information is based on the collectedTerms / storageTerms entered together
@@ -223,42 +244,14 @@ public interface RecordStorage {
 	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested type of records can not be found.
 	 * 
-	 * @param type
-	 *            A String with the record type
+	 * @param types
+	 *            A List of strings with the record type
 	 * @param filter
 	 *            A {@link DataGroup} with filter information about which subset of records to
 	 *            count.
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
 	 */
-	long getTotalNumberOfRecordsForType(String type, DataGroup filter);
+	long getTotalNumberOfRecordsForTypes(List<String> types, DataGroup filter);
 
-	/**
-	 * getTotalNumberOfRecordsForAbstractType should return the number of records that belong to the
-	 * specified abstract type. The returned number should be all stored records for the specified
-	 * list of implementing record types.
-	 * <p>
-	 * If a filter is specified the total number of records should reflect only those which match
-	 * the filter. Filter information is based on the storageTerms entered together with the record
-	 * when creating or updating the record.<br>
-	 * If the filter specifies a specific range of records to return, the range should be ignored
-	 * and the returned total number of records should be the total number of records stored for the
-	 * abstract type that match the provided filter.<br>
-	 * If the filter contains no include or exclude information should all records be counted.
-	 * <p>
-	 * If the requested type does not exist MUST a {@link RecordNotFoundException} be thrown,
-	 * indicating that the requested type of records can not be found.
-	 * 
-	 * @param abstractType
-	 *            A String with the abstract record type
-	 * @param implementingTypes
-	 *            A List with the implementing record types for the specified abstract type
-	 * @param filter
-	 *            A {@link DataGroup} with filter information about which subset of records to
-	 *            count.
-	 * @return a long with the number of records that exist in storage for the specified list of
-	 *         implementing types and that matches the specified filter
-	 */
-	long getTotalNumberOfRecordsForAbstractType(String abstractType, List<String> implementingTypes,
-			DataGroup filter);
 }
