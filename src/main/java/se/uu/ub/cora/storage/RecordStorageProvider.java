@@ -18,19 +18,55 @@
  */
 package se.uu.ub.cora.storage;
 
-import se.uu.ub.cora.initialize.ModuleInitializer;
-import se.uu.ub.cora.initialize.ModuleInitializerImp;
+import se.uu.ub.cora.initialize.AbstractProvider;
+import se.uu.ub.cora.initialize.SelectOrder;
 
-public class RecordStorageProvider {
+/**
+ * RecordStorageProvider is used to provide access to storage for Records.
+ * </p>
+ * Implementing {@link RecordStorageInstanceProvider}s are found using javas module system, and the
+ * one with the higest {@link SelectOrder} is used to provide access to record storage.
+ */
+public class RecordStorageProvider extends AbstractProvider {
 
+	private static RecordStorageInstanceProvider recordStorageInstanceProvider;
+
+	/**
+	 * getRecordStorage returns a RecordStorage that can be used by anything that needs access to
+	 * records.
+	 * </p>
+	 * Code using the returned {@link RecordStorage} instance MUST consider the returned intance as
+	 * NOT thread safe.
+	 * 
+	 * @return A RecordStorage that gives access to storage for records
+	 */
 	public static RecordStorage getRecordStorage() {
-		// TODO Auto-generated method stub
-		return null;
+		locateAndChooseRecordStorageInstanceProvider();
+		return recordStorageInstanceProvider.getRecordStorage();
 	}
 
-	public static ModuleInitializer onlyForTestGetModuleInitializer() {
-		// TODO Auto-generated method stub
-		return new ModuleInitializerImp();
+	private static void locateAndChooseRecordStorageInstanceProvider() {
+		if (recordStorageInstanceProvider == null) {
+			recordStorageInstanceProvider = moduleInitializer
+					.loadOneImplementationBySelectOrder(RecordStorageInstanceProvider.class);
+		}
 	}
 
+	/**
+	 * onlyForTestSetDataRecordFactory sets a RecordStorageInstanceProvider that will be used to
+	 * return instances for the {@link #getRecordStorage()} method. This possibility to set a
+	 * DataRecordFactory is provided to enable testing of getting a record storage in other classes
+	 * and is not intented to be used in production.
+	 * <p>
+	 * The RecordStorageInstanceProvider to use in production should be provided through an
+	 * implementation of {@link RecordStorageInstanceProvider} in a seperate java module.
+	 * 
+	 * @param recordStorageInstanceProvider
+	 *            A recordStorageInstanceProvider to use to return recordStorage instances for
+	 *            testing
+	 */
+	static void onlyForTestSetRecordStorageInstanceProvider(
+			RecordStorageInstanceProvider recordStorageInstanceProvider) {
+		RecordStorageProvider.recordStorageInstanceProvider = recordStorageInstanceProvider;
+	}
 }

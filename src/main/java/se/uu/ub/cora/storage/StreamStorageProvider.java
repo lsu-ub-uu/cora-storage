@@ -20,6 +20,8 @@ package se.uu.ub.cora.storage;
 
 import java.util.Map;
 
+import se.uu.ub.cora.initialize.SelectOrder;
+
 /**
  * StreamStorageProvider is used to provide storage for streams
  */

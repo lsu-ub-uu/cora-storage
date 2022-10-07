@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Uppsala University Library
+ * Copyright 2019, 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -20,10 +20,12 @@ package se.uu.ub.cora.storage;
 
 import java.util.Map;
 
+import se.uu.ub.cora.initialize.SelectOrder;
+
 /**
- * RecordStorageProvider is used to provide storage for Records
+ * RecordStorageInstanceProvider is used to provide storage for Records
  */
-public interface RecordStorageFactory extends SelectOrder {
+public interface RecordStorageInstanceProvider extends SelectOrder {
 
 	/**
 	 * startUsingInitInfo is expected to be called on system startup to allow implementing classes
@@ -33,7 +35,7 @@ public interface RecordStorageFactory extends SelectOrder {
 	 * <p>
 	 * The implementation of the method has to be threadsafe.
 	 */
-	void startUsingInitInfo(Map<String, String> initInfo);
+	// void startUsingInitInfo(Map<String, String> initInfo);
 
 	/**
 	 * getRecordStorage should be implemented in such a way that it returns a RecordStorage that can

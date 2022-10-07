@@ -20,6 +20,8 @@ package se.uu.ub.cora.storage;
 
 import java.util.Map;
 
+import se.uu.ub.cora.initialize.SelectOrder;
+
 /**
  * MetadataStorageProvider is used to provide storage for Metadata
  */
