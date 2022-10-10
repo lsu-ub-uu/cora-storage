@@ -18,7 +18,8 @@
  */
 package se.uu.ub.cora.storage;
 
-import se.uu.ub.cora.initialize.AbstractProvider;
+import se.uu.ub.cora.initialize.ModuleInitializer;
+import se.uu.ub.cora.initialize.ModuleInitializerImp;
 import se.uu.ub.cora.initialize.SelectOrder;
 
 /**
@@ -27,15 +28,29 @@ import se.uu.ub.cora.initialize.SelectOrder;
  * Implementing {@link RecordStorageInstanceProvider}s are found using javas module system, and the
  * one with the higest {@link SelectOrder} is used to provide access to record storage.
  */
-public class RecordStorageProvider extends AbstractProvider {
+public class RecordStorageProvider {
 
+	private static ModuleInitializer moduleInitializer = new ModuleInitializerImp();
 	private static RecordStorageInstanceProvider recordStorageInstanceProvider;
+
+	private RecordStorageProvider() {
+		// prevent call to constructor
+		throw new UnsupportedOperationException();
+	}
+
+	static ModuleInitializer onlyForTestGetModuleInitializer() {
+		return moduleInitializer;
+	}
+
+	static void onlyForTestSetModuleInitializer(ModuleInitializer moduleInitializer) {
+		RecordStorageProvider.moduleInitializer = moduleInitializer;
+	}
 
 	/**
 	 * getRecordStorage returns a RecordStorage that can be used by anything that needs access to
 	 * records.
 	 * </p>
-	 * Code using the returned {@link RecordStorage} instance MUST consider the returned intance as
+	 * Code using the returned {@link RecordStorage} instance MUST consider the returned instance as
 	 * NOT thread safe.
 	 * 
 	 * @return A RecordStorage that gives access to storage for records
@@ -65,7 +80,7 @@ public class RecordStorageProvider extends AbstractProvider {
 	 *            A recordStorageInstanceProvider to use to return recordStorage instances for
 	 *            testing
 	 */
-	static void onlyForTestSetRecordStorageInstanceProvider(
+	public static void onlyForTestSetRecordStorageInstanceProvider(
 			RecordStorageInstanceProvider recordStorageInstanceProvider) {
 		RecordStorageProvider.recordStorageInstanceProvider = recordStorageInstanceProvider;
 	}

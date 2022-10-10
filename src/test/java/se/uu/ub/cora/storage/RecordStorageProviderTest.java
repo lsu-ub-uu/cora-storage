@@ -18,14 +18,19 @@
  */
 package se.uu.ub.cora.storage;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.function.Supplier;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import se.uu.ub.cora.initialize.AbstractProvider;
+import se.uu.ub.cora.initialize.ModuleInitializer;
+import se.uu.ub.cora.initialize.ModuleInitializerImp;
 import se.uu.ub.cora.initialize.spies.ModuleInitializerSpy;
 import se.uu.ub.cora.logger.LoggerFactory;
 import se.uu.ub.cora.logger.LoggerProvider;
@@ -39,7 +44,7 @@ public class RecordStorageProviderTest {
 	@BeforeMethod
 	public void beforeMethod() {
 		LoggerProvider.setLoggerFactory(loggerFactory);
-		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
+		// setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
 		RecordStorageProvider.onlyForTestSetRecordStorageInstanceProvider(null);
 	}
 
@@ -53,12 +58,35 @@ public class RecordStorageProviderTest {
 	}
 
 	@Test
-	public void classExtendsAbstractProvider() throws Exception {
-		assertTrue(AbstractProvider.class.isAssignableFrom(RecordStorageProvider.class));
+	public void testPrivateConstructor() throws Exception {
+		Constructor<RecordStorageProvider> constructor = RecordStorageProvider.class
+				.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+	}
+
+	@Test(expectedExceptions = InvocationTargetException.class)
+	public void testPrivateConstructorInvoke() throws Exception {
+		Constructor<RecordStorageProvider> constructor = RecordStorageProvider.class
+				.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		constructor.newInstance();
 	}
 
 	@Test
+	public void testDefaultInitializerIsModuleInitalizer() throws Exception {
+		ModuleInitializer initializer = RecordStorageProvider.onlyForTestGetModuleInitializer();
+		assertNotNull(initializer);
+		assertTrue(initializer instanceof ModuleInitializerImp);
+	}
+	// @Test
+	// public void classExtendsAbstractProvider() throws Exception {
+	// assertTrue(AbstractProvider.class.isAssignableFrom(RecordStorageProvider.class));
+	// }
+
+	@Test
 	public void testGetRecordStorageUsesModuleInitializerToGetFactory() throws Exception {
+		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
+
 		RecordStorage recordStorage = RecordStorageProvider.getRecordStorage();
 
 		moduleInitializerSpy.MCR.assertParameters("loadOneImplementationBySelectOrder", 0,
@@ -78,6 +106,8 @@ public class RecordStorageProviderTest {
 
 	@Test
 	public void testMultipleCallsToGetRecordStorageOnlyLoadsImplementationsOnce() throws Exception {
+		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
+
 		RecordStorageProvider.getRecordStorage();
 		RecordStorageProvider.getRecordStorage();
 		RecordStorageProvider.getRecordStorage();
