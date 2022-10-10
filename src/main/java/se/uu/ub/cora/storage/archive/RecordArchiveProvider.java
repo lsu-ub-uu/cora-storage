@@ -20,7 +20,7 @@ package se.uu.ub.cora.storage.archive;
 
 import java.util.Map;
 
-import se.uu.ub.cora.storage.SelectOrder;
+import se.uu.ub.cora.initialize.SelectOrder;
 
 /**
  * RecordArchiveProvider is used to provide access to archive for Records

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Uppsala University Library
+ * Copyright 2019, 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,16 +18,21 @@
  */
 package se.uu.ub.cora.storage;
 
+import se.uu.ub.cora.initialize.SelectOrder;
+
 /**
- * SelectOrder is an interface used to decide which found implementation to use.
+ * RecordStorageInstanceProvider is used to provide storage for Records
  */
-public interface SelectOrder {
+public interface RecordStorageInstanceProvider extends SelectOrder {
+
 	/**
-	 * getOrderToSelectImplementionsBy should return an int with the select order of the
-	 * implementing class. A standard implementation should have select order 0, and more
-	 * specialized implementations should have higher values, such as 10, 20, etc.
+	 * getRecordStorage should be implemented in such a way that it returns a RecordStorage that can
+	 * be used by anything that needs access to records. Multiple calls to getRecordStorage should
+	 * return instances or the same instance, depending on the implementation. It must be possible
+	 * to use the currently returned instance without considering if other calls has been made to
+	 * this method.
 	 * 
-	 * @return an int with the implementations select order
+	 * @return A RecordStorage that gives access to storage for records
 	 */
-	int getOrderToSelectImplementionsBy();
+	RecordStorage getRecordStorage();
 }

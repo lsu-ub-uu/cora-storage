@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Uppsala University Library
+ * Copyright 2022 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -18,34 +18,70 @@
  */
 package se.uu.ub.cora.storage;
 
-import java.util.Map;
+import se.uu.ub.cora.initialize.ModuleInitializer;
+import se.uu.ub.cora.initialize.ModuleInitializerImp;
+import se.uu.ub.cora.initialize.SelectOrder;
 
 /**
- * RecordStorageProvider is used to provide storage for Records
+ * RecordStorageProvider is used to provide access to storage for Records.
+ * </p>
+ * Implementing {@link RecordStorageInstanceProvider}s are found using javas module system, and the
+ * one with the higest {@link SelectOrder} is used to provide access to record storage.
  */
-public interface RecordStorageProvider extends SelectOrder {
+public class RecordStorageProvider {
+
+	private static ModuleInitializer moduleInitializer = new ModuleInitializerImp();
+	private static RecordStorageInstanceProvider recordStorageInstanceProvider;
+
+	private RecordStorageProvider() {
+		// prevent call to constructor
+		throw new UnsupportedOperationException();
+	}
+
+	static ModuleInitializer onlyForTestGetModuleInitializer() {
+		return moduleInitializer;
+	}
+
+	static void onlyForTestSetModuleInitializer(ModuleInitializer moduleInitializer) {
+		RecordStorageProvider.moduleInitializer = moduleInitializer;
+	}
 
 	/**
-	 * startUsingInitInfo is expected to be called on system startup to allow implementing classes
-	 * to startup the implementing RecordStorage as needed.
-	 * <p>
-	 * If startup fails MUST an {@link StorageException} be thrown.
-	 * <p>
-	 * The implementation of the method has to be threadsafe.
-	 */
-	void startUsingInitInfo(Map<String, String> initInfo);
-
-	/**
-	 * getRecordStorage should be implemented in such a way that it returns a RecordStorage that can
-	 * be used by anything that needs access to records. Multiple calls to getRecordStorage should
-	 * return instances or the same instance, depending on the implementation. It must be possible
-	 * to use the currently returned instance without considering if other calls has been made to
-	 * this method.
-	 * <p>
-	 * If {@link #startUsingInitInfo(Map)} has not been called before this method and the
-	 * implementation does not work without it MUST an {@link StorageException} be thrown.
+	 * getRecordStorage returns a RecordStorage that can be used by anything that needs access to
+	 * records.
+	 * </p>
+	 * Code using the returned {@link RecordStorage} instance MUST consider the returned instance as
+	 * NOT thread safe.
 	 * 
 	 * @return A RecordStorage that gives access to storage for records
 	 */
-	RecordStorage getRecordStorage();
+	public static RecordStorage getRecordStorage() {
+		locateAndChooseRecordStorageInstanceProvider();
+		return recordStorageInstanceProvider.getRecordStorage();
+	}
+
+	private static void locateAndChooseRecordStorageInstanceProvider() {
+		if (recordStorageInstanceProvider == null) {
+			recordStorageInstanceProvider = moduleInitializer
+					.loadOneImplementationBySelectOrder(RecordStorageInstanceProvider.class);
+		}
+	}
+
+	/**
+	 * onlyForTestSetDataRecordFactory sets a RecordStorageInstanceProvider that will be used to
+	 * return instances for the {@link #getRecordStorage()} method. This possibility to set a
+	 * DataRecordFactory is provided to enable testing of getting a record storage in other classes
+	 * and is not intented to be used in production.
+	 * <p>
+	 * The RecordStorageInstanceProvider to use in production should be provided through an
+	 * implementation of {@link RecordStorageInstanceProvider} in a seperate java module.
+	 * 
+	 * @param recordStorageInstanceProvider
+	 *            A recordStorageInstanceProvider to use to return recordStorage instances for
+	 *            testing
+	 */
+	public static void onlyForTestSetRecordStorageInstanceProvider(
+			RecordStorageInstanceProvider recordStorageInstanceProvider) {
+		RecordStorageProvider.recordStorageInstanceProvider = recordStorageInstanceProvider;
+	}
 }
