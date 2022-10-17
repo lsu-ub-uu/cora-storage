@@ -23,6 +23,7 @@ import static org.testng.Assert.assertTrue;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.function.Supplier;
 
@@ -44,7 +45,6 @@ public class RecordStorageProviderTest {
 	@BeforeMethod
 	public void beforeMethod() {
 		LoggerProvider.setLoggerFactory(loggerFactory);
-		// setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
 		RecordStorageProvider.onlyForTestSetRecordStorageInstanceProvider(null);
 	}
 
@@ -78,10 +78,13 @@ public class RecordStorageProviderTest {
 		assertNotNull(initializer);
 		assertTrue(initializer instanceof ModuleInitializerImp);
 	}
-	// @Test
-	// public void classExtendsAbstractProvider() throws Exception {
-	// assertTrue(AbstractProvider.class.isAssignableFrom(RecordStorageProvider.class));
-	// }
+
+	@Test
+	public void testGetRecordStorageIsSynchronized_toPreventProblemsWithFindingImplementations()
+			throws Exception {
+		Method getRecordStorage = RecordStorageProvider.class.getMethod("getRecordStorage");
+		assertTrue(Modifier.isSynchronized(getRecordStorage.getModifiers()));
+	}
 
 	@Test
 	public void testGetRecordStorageUsesModuleInitializerToGetFactory() throws Exception {

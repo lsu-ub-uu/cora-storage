@@ -55,7 +55,7 @@ public class RecordStorageProvider {
 	 * 
 	 * @return A RecordStorage that gives access to storage for records
 	 */
-	public static RecordStorage getRecordStorage() {
+	public static synchronized RecordStorage getRecordStorage() {
 		locateAndChooseRecordStorageInstanceProvider();
 		return recordStorageInstanceProvider.getRecordStorage();
 	}
