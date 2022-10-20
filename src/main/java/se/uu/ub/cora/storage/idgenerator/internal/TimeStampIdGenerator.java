@@ -17,10 +17,14 @@
  *     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package se.uu.ub.cora.storage;
+package se.uu.ub.cora.storage.idgenerator.internal;
 
-public interface RecordIdGenerator {
+import se.uu.ub.cora.storage.idgenerator.RecordIdGenerator;
 
-	String getIdForType(String type);
+public class TimeStampIdGenerator implements RecordIdGenerator {
 
+	@Override
+	public String getIdForType(String type) {
+		return type + ":" + System.nanoTime();
+	}
 }
