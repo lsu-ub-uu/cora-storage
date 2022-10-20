@@ -32,12 +32,12 @@
 	<name>storage</name>
 
 	<properties>
-		<coradata.version>7.2-SNAPSHOT</coradata.version>
-		<json.version>3.3.0</json.version>
-		<initialize.version>1.0-SNAPSHOT</initialize.version>
-		<initialize-spies.version>1.0-SNAPSHOT</initialize-spies.version>
+		<coradata.version>7.2.0</coradata.version>
+		<json.version>3.4.0</json.version>
+		<initialize.version>1.0.0</initialize.version>
+		<initialize-spies.version>1.0.0</initialize-spies.version>
 		<logger.version>2.5.0</logger.version>
-		<logger-spies.version>1.0-SNAPSHOT</logger-spies.version>
+		<logger-spies.version>1.0.0</logger-spies.version>
 	</properties> 
 
 	<scm>
