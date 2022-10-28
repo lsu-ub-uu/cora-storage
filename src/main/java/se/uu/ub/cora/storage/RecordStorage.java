@@ -67,10 +67,10 @@ public interface RecordStorage {
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
 	 * </p>
-	 * If more than one record matching type and id is found MUST a {@link RecordNotFoundException}
-	 * be thrown, indicating that the requested record is a duplicate, this should not normally
-	 * happen as the a recordId should be unique for an abstract type, and if there is more than one
-	 * type in the types list should they all be children to a common abstract type.
+	 * If more than one record matching type and id is found MUST a {@link StorageException} be
+	 * thrown, indicating that the requested record is a duplicate, this should not normally happen
+	 * as the a recordId should be unique for an abstract type, and if there is more than one type
+	 * in the types list should they all be children to a common abstract type.
 	 * 
 	 * @param types
 	 *            A List<String> with a list of recordTypes
@@ -216,10 +216,11 @@ public interface RecordStorage {
 	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
 
 	/**
-	 * TODO: change name to getLinksToRecord
+	 * getLinksToRecord returns a collection of all links from other records, pointing to the record
+	 * specified by type and id.
+	 * 
 	 * </p>
-	 * generateLinkCollectionPointingToRecord returns a collection of all links from other records,
-	 * pointing to the record specified by type and id.
+	 * If no links are found should an empty collection be returned.
 	 * 
 	 * @param type
 	 *            A String with the records type
@@ -227,7 +228,7 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @return
 	 */
-	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
+	Collection<Link> getLinksToRecord(String type, String id);
 
 	/**
 	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
