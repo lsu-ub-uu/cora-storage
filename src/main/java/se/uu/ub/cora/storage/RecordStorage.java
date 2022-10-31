@@ -126,19 +126,6 @@ public interface RecordStorage {
 	void deleteByTypeAndId(String type, String id);
 
 	/**
-	 * linksExistForRecord returns if there are any other records that link to the record specified
-	 * by the entered type and id.
-	 * 
-	 * @param type
-	 *            A String with the records type
-	 * @param id
-	 *            A String with the records id
-	 * @return A boolean, true if there are any links pointing to this record, else is false
-	 *         returned
-	 */
-	boolean linksExistForRecord(String type, String id);
-
-	/**
 	 * update updates the existing dataRecord in storage with the new provided dataRecord.
 	 * CollectedTerms, linkList and dataDivider are updated in relationship to type and id. When the
 	 * update is complete should the stored data only contain the information that was provided in
@@ -216,9 +203,21 @@ public interface RecordStorage {
 	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
 
 	/**
+	 * linksExistForRecord returns if there are any other records that link to the record specified
+	 * by the entered type and id.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A boolean, true if there are any links pointing to this record, else is false
+	 *         returned
+	 */
+	boolean linksExistForRecord(String type, String id);
+
+	/**
 	 * getLinksToRecord returns a collection of all links from other records, pointing to the record
 	 * specified by type and id.
-	 * 
 	 * </p>
 	 * If no links are found should an empty collection be returned.
 	 * 
@@ -226,7 +225,7 @@ public interface RecordStorage {
 	 *            A String with the records type
 	 * @param id
 	 *            A String with the records id
-	 * @return
+	 * @return A Collection of all Links pointing from other records to the specified record.
 	 */
 	Collection<Link> getLinksToRecord(String type, String id);
 
