@@ -183,8 +183,8 @@ public interface RecordStorage {
 	StorageReadResult readList(List<String> types, DataGroup filter);
 
 	/**
-	 * recordExistsForListOfImplementingRecordTypesAndRecordId returns true if a record exists in
-	 * storage for one of the specified types and the specified id.
+	 * recordExists returns true if a record exists in storage for one of the specified types and
+	 * the specified id.
 	 * </p>
 	 * The list of types is intended to be used in two ways.
 	 * <ol>
@@ -200,7 +200,7 @@ public interface RecordStorage {
 	 *            A string with the id of the record to be found.
 	 * @return A boolean wether the the record id combined with any of the types is found or not.
 	 */
-	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
+	boolean recordExists(List<String> types, String id);
 
 	/**
 	 * linksExistForRecord returns if there are any other records that link to the record specified

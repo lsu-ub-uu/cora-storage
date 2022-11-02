@@ -66,7 +66,7 @@ public class RecordStorageSpy implements RecordStorage {
 	}
 
 	@Override
-	public boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types,
+	public boolean recordExists(List<String> types,
 			String id) {
 		// TODO Auto-generated method stub
 		return false;
