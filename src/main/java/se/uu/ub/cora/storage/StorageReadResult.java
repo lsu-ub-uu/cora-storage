@@ -18,6 +18,7 @@
  */
 package se.uu.ub.cora.storage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
@@ -33,17 +34,17 @@ public final class StorageReadResult {
 	 * start is the number where this lists first record is in the list of matches if a subset of
 	 * all matches where requested. Counted such as the first match is generates a start of 0.
 	 */
-	public long start;
+	public long start = 0;
 
 	/**
 	 * totalNumberOfMatches contains the total number of records in storage for the recordType,
 	 * matching any provided filter, ignoring fromNo and toNo.
 	 */
-	public long totalNumberOfMatches;
+	public long totalNumberOfMatches = 0;
 
 	/**
 	 * listOfDataGroups is a list records that match the request that has been made
 	 */
-	public List<DataGroup> listOfDataGroups;
+	public List<DataGroup> listOfDataGroups = new ArrayList<>();
 
 }

@@ -67,10 +67,10 @@ public interface RecordStorage {
 	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
 	 * indicating that the requested record can not be found.
 	 * </p>
-	 * If more than one record matching type and id is found MUST a {@link RecordNotFoundException}
-	 * be thrown, indicating that the requested record is a duplicate, this should not normally
-	 * happen as the a recordId should be unique for an abstract type, and if there is more than one
-	 * type in the types list should they all be children to a common abstract type.
+	 * If more than one record matching type and id is found MUST a {@link StorageException} be
+	 * thrown, indicating that the requested record is a duplicate, this should not normally happen
+	 * as the a recordId should be unique for an abstract type, and if there is more than one type
+	 * in the types list should they all be children to a common abstract type.
 	 * 
 	 * @param types
 	 *            A List<String> with a list of recordTypes
@@ -124,19 +124,6 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 */
 	void deleteByTypeAndId(String type, String id);
-
-	/**
-	 * linksExistForRecord returns if there are any other records that link to the record specified
-	 * by the entered type and id.
-	 * 
-	 * @param type
-	 *            A String with the records type
-	 * @param id
-	 *            A String with the records id
-	 * @return A boolean, true if there are any links pointing to this record, else is false
-	 *         returned
-	 */
-	boolean linksExistForRecord(String type, String id);
 
 	/**
 	 * update updates the existing dataRecord in storage with the new provided dataRecord.
@@ -196,8 +183,8 @@ public interface RecordStorage {
 	StorageReadResult readList(List<String> types, DataGroup filter);
 
 	/**
-	 * recordExistsForListOfImplementingRecordTypesAndRecordId returns true if a record exists in
-	 * storage for one of the specified types and the specified id.
+	 * recordExists returns true if a record exists in storage for one of the specified types and
+	 * the specified id.
 	 * </p>
 	 * The list of types is intended to be used in two ways.
 	 * <ol>
@@ -213,21 +200,34 @@ public interface RecordStorage {
 	 *            A string with the id of the record to be found.
 	 * @return A boolean wether the the record id combined with any of the types is found or not.
 	 */
-	boolean recordExistsForListOfImplementingRecordTypesAndRecordId(List<String> types, String id);
+	boolean recordExists(List<String> types, String id);
 
 	/**
-	 * TODO: change name to getLinksToRecord
-	 * </p>
-	 * generateLinkCollectionPointingToRecord returns a collection of all links from other records,
-	 * pointing to the record specified by type and id.
+	 * linksExistForRecord returns if there are any other records that link to the record specified
+	 * by the entered type and id.
 	 * 
 	 * @param type
 	 *            A String with the records type
 	 * @param id
 	 *            A String with the records id
-	 * @return
+	 * @return A boolean, true if there are any links pointing to this record, else is false
+	 *         returned
 	 */
-	Collection<DataGroup> generateLinkCollectionPointingToRecord(String type, String id);
+	boolean linksExistForRecord(String type, String id);
+
+	/**
+	 * getLinksToRecord returns a collection of all links from other records, pointing to the record
+	 * specified by type and id.
+	 * </p>
+	 * If no links are found should an empty collection be returned.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A Collection of all Links pointing from other records to the specified record.
+	 */
+	Collection<Link> getLinksToRecord(String type, String id);
 
 	/**
 	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
