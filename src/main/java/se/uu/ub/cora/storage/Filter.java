@@ -19,5 +19,5 @@
 package se.uu.ub.cora.storage;
 
 public record Filter(String key, String value) {
-
+	// TODO: fix values for filter... more like search
 }

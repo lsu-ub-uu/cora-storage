@@ -60,7 +60,7 @@ public class RecordStorageSpy implements RecordStorage {
 	}
 
 	@Override
-	public StorageReadResult readList(List<String> types, DataGroup filter) {
+	public StorageReadResult readList(List<String> types, Filter filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

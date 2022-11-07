@@ -175,12 +175,11 @@ public interface RecordStorage {
 	 * @param types
 	 *            A list of strings with the types of records to read.
 	 * @param filter
-	 *            A {@link DataGroup} with filter information about which subset of records to
-	 *            return.
+	 *            A {@link Filter} with filter information about which subset of records to return.
 	 * @return A StorageReadResult with the records that exist in storage for the specified types
 	 *         and filter
 	 */
-	StorageReadResult readList(List<String> types, DataGroup filter);
+	StorageReadResult readList(List<String> types, Filter filter);
 
 	/**
 	 * recordExists returns true if a record exists in storage for one of the specified types and
