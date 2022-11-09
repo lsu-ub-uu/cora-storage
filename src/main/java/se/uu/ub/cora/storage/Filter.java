@@ -62,8 +62,22 @@ import java.util.List;
  * 
  */
 public class Filter {
-	long fromNo = 1;
-	long toNo = Long.MAX_VALUE;
-	List<Part> include = new ArrayList<>();
-	List<Part> exclude = new ArrayList<>();
+	public long fromNo = 1;
+	public long toNo = Long.MAX_VALUE;
+	public List<Part> include = new ArrayList<>();
+	public List<Part> exclude = new ArrayList<>();
+
+	/**
+	 * filtersResults returns true if this filter is set to limit results, either by limiting the
+	 * set of returned by only requesting a subset of results through fromNo and toNo, or by having
+	 * at least one part in include or exclude. If no default value is changed is false returned.
+	 */
+	public boolean filtersResults() {
+		return allValuesAreDefault();
+	}
+
+	private boolean allValuesAreDefault() {
+		return fromNo != 1 || toNo != Long.MAX_VALUE || !include.isEmpty() || !exclude.isEmpty();
+	}
+
 }

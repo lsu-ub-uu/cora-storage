@@ -246,11 +246,10 @@ public interface RecordStorage {
 	 * @param types
 	 *            A List of strings with the record type
 	 * @param filter
-	 *            A {@link DataGroup} with filter information about which subset of records to
-	 *            count.
+	 *            A {@link Filter} with filter information about which subset of records to count.
 	 * @return a long with the number of records that exist in storage for the specified type and
 	 *         filter
 	 */
-	long getTotalNumberOfRecordsForTypes(List<String> types, DataGroup filter);
+	long getTotalNumberOfRecordsForTypes(List<String> types, Filter filter);
 
 }

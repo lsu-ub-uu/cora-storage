@@ -25,5 +25,5 @@ import java.util.List;
  * See {@link Filter} for more information
  */
 public class Part {
-	List<Condition> pairs = new ArrayList<>();
+	public List<Condition> conditions = new ArrayList<>();
 }
