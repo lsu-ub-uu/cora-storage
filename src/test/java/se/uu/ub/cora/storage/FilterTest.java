@@ -80,4 +80,27 @@ public class FilterTest {
 		assertTrue(filterResults);
 	}
 
+	@Test
+	public void testFromNoIsDefault() throws Exception {
+		assertTrue(filter.fromNoIsDefault());
+	}
+
+	@Test
+	public void testFromNoIsNotDefault() throws Exception {
+		filter.fromNo = 100;
+
+		assertFalse(filter.fromNoIsDefault());
+	}
+
+	@Test
+	public void testToNoIsDefault() throws Exception {
+		assertTrue(filter.toNoIsDefault());
+	}
+
+	@Test
+	public void testToNoIsNotDefault() throws Exception {
+		filter.toNo = 200;
+
+		assertFalse(filter.toNoIsDefault());
+	}
 }

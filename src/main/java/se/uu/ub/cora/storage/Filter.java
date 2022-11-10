@@ -80,4 +80,11 @@ public class Filter {
 		return fromNo != 1 || toNo != Long.MAX_VALUE || !include.isEmpty() || !exclude.isEmpty();
 	}
 
+	public boolean fromNoIsDefault() {
+		return fromNo == 1;
+	}
+
+	public boolean toNoIsDefault() {
+		return toNo == Long.MAX_VALUE;
+	}
 }
