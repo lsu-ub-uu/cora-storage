@@ -87,4 +87,8 @@ public class Filter {
 	public boolean toNoIsDefault() {
 		return toNo == Long.MAX_VALUE;
 	}
+
+	public boolean hasIncludeParts() {
+		return !include.isEmpty();
+	}
 }

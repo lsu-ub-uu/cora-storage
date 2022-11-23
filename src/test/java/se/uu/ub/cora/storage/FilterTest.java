@@ -103,4 +103,16 @@ public class FilterTest {
 
 		assertFalse(filter.toNoIsDefault());
 	}
+
+	@Test
+	public void testHasIncludeParts() throws Exception {
+		assertFalse(filter.hasIncludeParts());
+	}
+
+	@Test
+	public void testHasIncludePartsForAddedPart() throws Exception {
+		filter.include.add(new Part());
+
+		assertTrue(filter.hasIncludeParts());
+	}
 }
