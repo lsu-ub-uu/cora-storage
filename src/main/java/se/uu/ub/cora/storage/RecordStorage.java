@@ -19,8 +19,8 @@
 
 package se.uu.ub.cora.storage;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.data.collected.Link;
@@ -104,12 +104,12 @@ public interface RecordStorage {
 	 * @param storageTerms
 	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
 	 * @param links
-	 *            A {@link DataGroup} with a list of records that this record has links to
+	 *            A set {@link Link} that this record points to.
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void create(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			List<Link> links, String dataDivider);
+	void create(String type, String id, DataGroup dataRecord, Set<StorageTerm> storageTerms,
+			Set<Link> links, String dataDivider);
 
 	/**
 	 * deleteByTypeAndId deletes the existing dataRecord from storage. Any to the record associated
@@ -150,12 +150,12 @@ public interface RecordStorage {
 	 * @param storageTerms
 	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
 	 * @param links
-	 *            A {@link DataGroup} with a list of records that this record has links to
+	 *            A set {@link Link} that this record points to.
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void update(String type, String id, DataGroup dataRecord, List<StorageTerm> storageTerms,
-			List<Link> links, String dataDivider);
+	void update(String type, String id, DataGroup dataRecord, Set<StorageTerm> storageTerms,
+			Set<Link> links, String dataDivider);
 
 	/**
 	 * readList should return, from storage, the records that has the corresponding type and matches
@@ -224,9 +224,9 @@ public interface RecordStorage {
 	 *            A String with the records type
 	 * @param id
 	 *            A String with the records id
-	 * @return A Collection of all Links pointing from other records to the specified record.
+	 * @return A Set of all Links pointing from other records to the specified record.
 	 */
-	Collection<Link> getLinksToRecord(String type, String id);
+	Set<Link> getLinksToRecord(String type, String id);
 
 	/**
 	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
