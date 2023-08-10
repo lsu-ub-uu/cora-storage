@@ -54,36 +54,36 @@ public class ResourceArchiveProviderTest {
 	}
 
 	@Test
-	public void testGetBinaryArchiveProviderExtendsAbstractProvider() throws Exception {
+	public void testGetResourceArchiveProviderExtendsAbstractProvider() throws Exception {
 		assertTrue(AbstractProvider.class.isAssignableFrom(ResourceArchiveProvider.class));
 	}
 
 	@Test
-	public void testGetBinaryArchiveIsSynchronized_toPreventProblemsWithFindingImplementations()
+	public void testGetResourceArchiveIsSynchronized_toPreventProblemsWithFindingImplementations()
 			throws Exception {
-		Method getBinaryArchive = ResourceArchiveProvider.class.getMethod("getResourceArchive");
-		assertTrue(Modifier.isSynchronized(getBinaryArchive.getModifiers()));
+		Method getResourceArchive = ResourceArchiveProvider.class.getMethod("getResourceArchive");
+		assertTrue(Modifier.isSynchronized(getResourceArchive.getModifiers()));
 	}
 
 	@Test
-	public void testGetBinaryArchiveUsesModuleInitializerToGetFactory() throws Exception {
+	public void testGetResourceArchiveUsesModuleInitializerToGetFactory() throws Exception {
 		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
 
-		ResourceArchive binaryArchive = ResourceArchiveProvider.getResourceArchive();
+		ResourceArchive resourceArchive = ResourceArchiveProvider.getResourceArchive();
 
 		moduleInitializerSpy.MCR.assertParameters("loadOneImplementationBySelectOrder", 0,
 				ResourceArchiveInstanceProvider.class);
-		instanceProviderSpy.MCR.assertReturn("getResourceArchive", 0, binaryArchive);
+		instanceProviderSpy.MCR.assertReturn("getResourceArchive", 0, resourceArchive);
 	}
 
 	@Test
-	public void testOnlyForTestSetBinaryArchiveInstanceProvider() throws Exception {
+	public void testOnlyForTestSetResourceArchiveInstanceProvider() throws Exception {
 		ResourceArchiveInstanceProviderSpy instanceProviderSpy2 = new ResourceArchiveInstanceProviderSpy();
 		ResourceArchiveProvider.onlyForTestSetInstanceProvider(instanceProviderSpy2);
 
-		ResourceArchive binaryArchive = ResourceArchiveProvider.getResourceArchive();
+		ResourceArchive resourceArchive = ResourceArchiveProvider.getResourceArchive();
 
-		instanceProviderSpy2.MCR.assertReturn("getResourceArchive", 0, binaryArchive);
+		instanceProviderSpy2.MCR.assertReturn("getResourceArchive", 0, resourceArchive);
 	}
 
 	@Test
