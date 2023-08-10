@@ -18,32 +18,32 @@
  */
 package se.uu.ub.cora.storage.archive;
 
-import java.util.function.Supplier;
+import java.io.InputStream;
 
-import se.uu.ub.cora.testutils.mcr.MethodCallRecorder;
-import se.uu.ub.cora.testutils.mrv.MethodReturnValues;
+public class ResourceArchiveSpy implements ResourceArchive {
 
-public class BinaryArchiveInstanceProviderSpy implements BinaryArchiveInstanceProvider {
-
-	public MethodCallRecorder MCR = new MethodCallRecorder();
-	public MethodReturnValues MRV = new MethodReturnValues();
-
-	public BinaryArchiveInstanceProviderSpy() {
-		MCR.useMRV(MRV);
-		MRV.setDefaultReturnValuesSupplier("getOrderToSelectImplementionsBy",
-				(Supplier<Integer>) () -> 0);
-		MRV.setDefaultReturnValuesSupplier("getBinaryArchive", BinaryArchiveSpy::new);
+	@Override
+	public void create(String type, String id, InputStream resource, String mimeType) {
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public int getOrderToSelectImplementionsBy() {
-		return (int) MCR.addCallAndReturnFromMRV();
+	public InputStream read(String type, String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public BinaryArchive getBinaryArchive() {
-		return (BinaryArchive) MCR.addCallAndReturnFromMRV();
+	public void update(String type, String id, InputStream resource, String mimeType) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(String type, String id) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

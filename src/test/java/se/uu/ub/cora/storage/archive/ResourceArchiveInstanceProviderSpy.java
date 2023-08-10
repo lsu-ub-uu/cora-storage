@@ -18,32 +18,32 @@
  */
 package se.uu.ub.cora.storage.archive;
 
-import java.io.InputStream;
+import java.util.function.Supplier;
 
-public class BinaryArchiveSpy implements BinaryArchive {
+import se.uu.ub.cora.testutils.mcr.MethodCallRecorder;
+import se.uu.ub.cora.testutils.mrv.MethodReturnValues;
 
-	@Override
-	public void create(String type, String id, InputStream binary) {
-		// TODO Auto-generated method stub
+public class ResourceArchiveInstanceProviderSpy implements ResourceArchiveInstanceProvider {
 
-	}
+	public MethodCallRecorder MCR = new MethodCallRecorder();
+	public MethodReturnValues MRV = new MethodReturnValues();
 
-	@Override
-	public void update(String type, String id, InputStream binary) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void read(String type, String id) {
-		// TODO Auto-generated method stub
+	public ResourceArchiveInstanceProviderSpy() {
+		MCR.useMRV(MRV);
+		MRV.setDefaultReturnValuesSupplier("getOrderToSelectImplementionsBy",
+				(Supplier<Integer>) () -> 0);
+		MRV.setDefaultReturnValuesSupplier("getResourceArchive", ResourceArchiveSpy::new);
 
 	}
 
 	@Override
-	public void delete(String type, String id) {
-		// TODO Auto-generated method stub
+	public int getOrderToSelectImplementionsBy() {
+		return (int) MCR.addCallAndReturnFromMRV();
+	}
 
+	@Override
+	public ResourceArchive getResourceArchive() {
+		return (ResourceArchive) MCR.addCallAndReturnFromMRV();
 	}
 
 }

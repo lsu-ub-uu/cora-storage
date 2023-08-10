@@ -21,18 +21,18 @@ package se.uu.ub.cora.storage.archive;
 import se.uu.ub.cora.initialize.SelectOrder;
 
 /**
- * BinaryArchiveInstanceProvider is used to provide archive for binaries
+ * ResourceArchiveInstanceProvider is used to provide archive for binaries
  */
-public interface BinaryArchiveInstanceProvider extends SelectOrder {
+public interface ResourceArchiveInstanceProvider extends SelectOrder {
 
 	/**
-	 * getBinaryArchive should be implemented in such a way that it returns a BinaryArchive that can
-	 * be used by anything that needs access to binaries. Multiple calls to getBinaryArchive should
-	 * return instances or the same instance, depending on the implementation. It must be possible
-	 * to use the currently returned instance without considering if other calls has been made to
-	 * this method.
+	 * getResourceArchive should be implemented in such a way that it returns a ResourceArchive that
+	 * can be used by anything that needs access to resources. Multiple calls to getResourceArchive
+	 * should return instances or the same instance, depending on the implementation. It must be
+	 * possible to use the currently returned instance without considering if other calls has been
+	 * made to this method.
 	 * 
-	 * @return A BinaryArchive that gives access to archive for binaries
+	 * @return A ResourceArchive that gives access to archive for resources
 	 */
-	BinaryArchive getBinaryArchive();
+	ResourceArchive getResourceArchive();
 }

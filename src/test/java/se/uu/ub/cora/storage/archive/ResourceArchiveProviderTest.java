@@ -33,35 +33,35 @@ import se.uu.ub.cora.logger.LoggerFactory;
 import se.uu.ub.cora.logger.LoggerProvider;
 import se.uu.ub.cora.logger.spies.LoggerFactorySpy;
 
-public class BinaryArchiveProviderTest {
+public class ResourceArchiveProviderTest {
 	private LoggerFactory loggerFactory = new LoggerFactorySpy();
 	private ModuleInitializerSpy moduleInitializerSpy;
-	private BinaryArchiveInstanceProviderSpy instanceProviderSpy;
+	private ResourceArchiveInstanceProviderSpy instanceProviderSpy;
 
 	@BeforeMethod
 	public void beforeMethod() {
 		LoggerProvider.setLoggerFactory(loggerFactory);
-		BinaryArchiveProvider.onlyForTestSetBinaryArchiveInstanceProvider(null);
+		ResourceArchiveProvider.onlyForTestSetInstanceProvider(null);
 	}
 
 	private void setupModuleInstanceProviderToReturnRecordStorageFactorySpy() {
 		moduleInitializerSpy = new ModuleInitializerSpy();
-		instanceProviderSpy = new BinaryArchiveInstanceProviderSpy();
+		instanceProviderSpy = new ResourceArchiveInstanceProviderSpy();
 		moduleInitializerSpy.MRV.setDefaultReturnValuesSupplier(
 				"loadOneImplementationBySelectOrder",
-				((Supplier<BinaryArchiveInstanceProvider>) () -> instanceProviderSpy));
-		BinaryArchiveProvider.onlyForTestSetModuleInitializer(moduleInitializerSpy);
+				((Supplier<ResourceArchiveInstanceProvider>) () -> instanceProviderSpy));
+		ResourceArchiveProvider.onlyForTestSetModuleInitializer(moduleInitializerSpy);
 	}
 
 	@Test
 	public void testGetBinaryArchiveProviderExtendsAbstractProvider() throws Exception {
-		assertTrue(AbstractProvider.class.isAssignableFrom(BinaryArchiveProvider.class));
+		assertTrue(AbstractProvider.class.isAssignableFrom(ResourceArchiveProvider.class));
 	}
 
 	@Test
 	public void testGetBinaryArchiveIsSynchronized_toPreventProblemsWithFindingImplementations()
 			throws Exception {
-		Method getBinaryArchive = BinaryArchiveProvider.class.getMethod("getBinaryArchive");
+		Method getBinaryArchive = ResourceArchiveProvider.class.getMethod("getResourceArchive");
 		assertTrue(Modifier.isSynchronized(getBinaryArchive.getModifiers()));
 	}
 
@@ -69,31 +69,31 @@ public class BinaryArchiveProviderTest {
 	public void testGetBinaryArchiveUsesModuleInitializerToGetFactory() throws Exception {
 		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
 
-		BinaryArchive binaryArchive = BinaryArchiveProvider.getBinaryArchive();
+		ResourceArchive binaryArchive = ResourceArchiveProvider.getResourceArchive();
 
 		moduleInitializerSpy.MCR.assertParameters("loadOneImplementationBySelectOrder", 0,
-				BinaryArchiveInstanceProvider.class);
-		instanceProviderSpy.MCR.assertReturn("getBinaryArchive", 0, binaryArchive);
+				ResourceArchiveInstanceProvider.class);
+		instanceProviderSpy.MCR.assertReturn("getResourceArchive", 0, binaryArchive);
 	}
 
 	@Test
 	public void testOnlyForTestSetBinaryArchiveInstanceProvider() throws Exception {
-		BinaryArchiveInstanceProviderSpy instanceProviderSpy2 = new BinaryArchiveInstanceProviderSpy();
-		BinaryArchiveProvider.onlyForTestSetBinaryArchiveInstanceProvider(instanceProviderSpy2);
+		ResourceArchiveInstanceProviderSpy instanceProviderSpy2 = new ResourceArchiveInstanceProviderSpy();
+		ResourceArchiveProvider.onlyForTestSetInstanceProvider(instanceProviderSpy2);
 
-		BinaryArchive binaryArchive = BinaryArchiveProvider.getBinaryArchive();
+		ResourceArchive binaryArchive = ResourceArchiveProvider.getResourceArchive();
 
-		instanceProviderSpy2.MCR.assertReturn("getBinaryArchive", 0, binaryArchive);
+		instanceProviderSpy2.MCR.assertReturn("getResourceArchive", 0, binaryArchive);
 	}
 
 	@Test
 	public void testMultipleCallsToGetRecordStorageOnlyLoadsImplementationsOnce() throws Exception {
 		setupModuleInstanceProviderToReturnRecordStorageFactorySpy();
 
-		BinaryArchiveProvider.getBinaryArchive();
-		BinaryArchiveProvider.getBinaryArchive();
-		BinaryArchiveProvider.getBinaryArchive();
-		BinaryArchiveProvider.getBinaryArchive();
+		ResourceArchiveProvider.getResourceArchive();
+		ResourceArchiveProvider.getResourceArchive();
+		ResourceArchiveProvider.getResourceArchive();
+		ResourceArchiveProvider.getResourceArchive();
 
 		moduleInitializerSpy.MCR.assertNumberOfCallsToMethod("loadOneImplementationBySelectOrder",
 				1);
