@@ -34,7 +34,7 @@
 	<properties>
 		<coradata.version>7.7.0</coradata.version>
 		<json.version>3.8.0</json.version>
-		<initialize.version>1.4.0</initialize.version>
+		<initialize.version>1.5-SNAPSHOT</initialize.version>
 		<initialize-spies.version>1.4.0</initialize-spies.version>
 		<logger.version>2.9.0</logger.version>
 		<logger-spies.version>1.4.0</logger-spies.version>

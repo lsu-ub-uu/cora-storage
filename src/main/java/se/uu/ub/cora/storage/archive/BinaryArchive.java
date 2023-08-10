@@ -24,7 +24,7 @@ import se.uu.ub.cora.storage.RecordConflictException;
 import se.uu.ub.cora.storage.RecordNotFoundException;
 
 /**
- * BinaryArchive is the interface that defines how records are stored and retreived from a Cora
+ * BinaryArchive is the interface that defines how binaries are stored and retreived from a Cora
  * systems archive. This interface makes the archiving implementation decoupled from the rest of the
  * system enabling different archive solutions to be developed and used depending on the needs of
  * the current system.
@@ -55,6 +55,14 @@ public interface BinaryArchive {
 	void create(String type, String id, InputStream binary);
 
 	/**
+	 * Read the binary from the archive
+	 * 
+	 * @param id
+	 *            A String with the binary's id
+	 */
+	void read(String type, String id);
+
+	/**
 	 * update stores the binary in the archive.
 	 * <p>
 	 * If a binary matching type and id does not exist in the archive MUST a
@@ -71,14 +79,6 @@ public interface BinaryArchive {
 	 *            A {@link InputStream} with the binary's data
 	 */
 	void update(String type, String id, InputStream binary);
-
-	/**
-	 * Read the binary from the archive
-	 * 
-	 * @param id
-	 *            A String with the binary's id
-	 */
-	void read(String type, String id);
 
 	void delete(String type, String id);
 }
