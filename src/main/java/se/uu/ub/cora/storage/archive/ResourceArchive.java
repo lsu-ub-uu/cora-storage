@@ -20,6 +20,8 @@ package se.uu.ub.cora.storage.archive;
 
 import java.io.InputStream;
 
+import se.uu.ub.cora.storage.ResourceConflictException;
+
 /**
  * ResourceArchive is the interface that defines how resources are stored and retreived from a Cora
  * systems archive. This interface makes the archiving implementation decoupled from the rest of the
@@ -61,6 +63,7 @@ public interface ResourceArchive {
 	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource can not
 	 * be read.
 	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
 	 * @param type
 	 *            A String with the resource type
@@ -97,6 +100,7 @@ public interface ResourceArchive {
 	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource can not
 	 * be deleted.
 	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
 	 * @param type
 	 *            A String with the resource type
