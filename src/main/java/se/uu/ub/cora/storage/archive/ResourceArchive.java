@@ -21,6 +21,7 @@ package se.uu.ub.cora.storage.archive;
 import java.io.InputStream;
 
 import se.uu.ub.cora.storage.ResourceConflictException;
+import se.uu.ub.cora.storage.ResourceNotFoundException;
 
 /**
  * ResourceArchive is the interface that defines how resources are stored and retreived from a Cora
@@ -44,6 +45,8 @@ public interface ResourceArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
 	 * @param type
 	 *            A String with the resource type
 	 * @param id
@@ -53,7 +56,7 @@ public interface ResourceArchive {
 	 * @param mimeType
 	 *            String with the MIME type of the resource
 	 */
-	void create(String type, String id, InputStream resource, String mimeType);
+	void create(String dataDivider, String type, String id, InputStream resource, String mimeType);
 
 	/**
 	 * read the resource from the archive
@@ -65,12 +68,14 @@ public interface ResourceArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
 	 * @param type
 	 *            A String with the resource type
 	 * @param id
 	 *            A String with the reource id
 	 */
-	InputStream read(String type, String id);
+	InputStream read(String dataDivider, String type, String id);
 
 	/**
 	 * update stores the resource in the archive.
@@ -81,6 +86,8 @@ public interface ResourceArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
 	 * @param type
 	 *            A String with the resource type
 	 * @param id
@@ -90,7 +97,7 @@ public interface ResourceArchive {
 	 * @param mimeType
 	 *            String with the MIME type of the resource
 	 */
-	void update(String type, String id, InputStream resource, String mimeType);
+	void update(String dataDivider, String type, String id, InputStream resource, String mimeType);
 
 	/**
 	 * delete removes a resource from the archive
@@ -102,10 +109,12 @@ public interface ResourceArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
 	 * @param type
 	 *            A String with the resource type
 	 * @param id
 	 *            A String with the resource id
 	 */
-	void delete(String type, String id);
+	void delete(String dataDivider, String type, String id);
 }
