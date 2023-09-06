@@ -55,8 +55,9 @@ public interface ResourceArchive {
 	 *            A {@link InputStream} with the resource's data
 	 * @param mimeType
 	 *            String with the MIME type of the resource
+	 * @return A long with resource file size
 	 */
-	void create(String dataDivider, String type, String id, InputStream resource, String mimeType);
+	long create(String dataDivider, String type, String id, InputStream resource, String mimeType);
 
 	/**
 	 * read the resource from the archive
@@ -74,6 +75,7 @@ public interface ResourceArchive {
 	 *            A String with the resource type
 	 * @param id
 	 *            A String with the reource id
+	 * @return An InputStream with the requested resource
 	 */
 	InputStream read(String dataDivider, String type, String id);
 
