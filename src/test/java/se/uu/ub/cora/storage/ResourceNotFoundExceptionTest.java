@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2019 Uppsala University Library
+ * Copyright 2015 2021 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -21,23 +21,24 @@ package se.uu.ub.cora.storage;
 
 import static org.testng.Assert.assertEquals;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class RecordNotFoundExceptionTest {
+public class ResourceNotFoundExceptionTest {
 	@Test
 	public void testInit() {
-		RecordNotFoundException notFound = RecordNotFoundException.withMessage("message");
+		ResourceNotFoundException conflict = ResourceNotFoundException.withMessage("message");
 
-		assertEquals(notFound.getMessage(), "message");
+		Assert.assertEquals(conflict.getMessage(), "message");
 	}
 
 	@Test
 	public void testInitWithException() {
 		Exception exception = new Exception();
-		RecordNotFoundException notFound = RecordNotFoundException
+		ResourceNotFoundException conflict = ResourceNotFoundException
 				.withMessageAndException("message", exception);
 
-		assertEquals(notFound.getMessage(), "message");
-		assertEquals(notFound.getCause(), exception);
+		assertEquals(conflict.getMessage(), "message");
+		assertEquals(conflict.getCause(), exception);
 	}
 }

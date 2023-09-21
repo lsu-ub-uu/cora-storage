@@ -44,14 +44,16 @@ public interface RecordArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the record's data divider.
 	 * @param type
-	 *            A String with the records type
+	 *            A String with the record's type
 	 * @param id
-	 *            A String with the records id
+	 *            A String with the record's id
 	 * @param dataRecord
-	 *            A {@link DataGroup} with the records data
+	 *            A {@link DataGroup} with the record's data
 	 */
-	void create(String type, String id, DataGroup dataRecord);
+	void create(String dataDivider, String type, String id, DataGroup dataRecord);
 
 	/**
 	 * update stores the record in the archive.
@@ -62,12 +64,14 @@ public interface RecordArchive {
 	 * <p>
 	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
+	 * @param dataDivider
+	 *            A String with the record's data divider.
 	 * @param type
-	 *            A String with the records type
+	 *            A String with the record's type
 	 * @param id
-	 *            A String with the records id
+	 *            A String with the record's id
 	 * @param dataRecord
-	 *            A {@link DataGroup} with the records data
+	 *            A {@link DataGroup} with the record's data
 	 */
-	void update(String type, String id, DataGroup dataRecord);
+	void update(String dataDivider, String type, String id, DataGroup dataRecord);
 }
