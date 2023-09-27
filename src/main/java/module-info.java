@@ -1,4 +1,6 @@
 import se.uu.ub.cora.storage.RecordStorageInstanceProvider;
+import se.uu.ub.cora.storage.archive.RecordArchiveProvider;
+import se.uu.ub.cora.storage.archive.ResourceArchiveInstanceProvider;
 
 /**
  * The storage module provides interfaces and access needed to store data in a Cora based system.
@@ -8,6 +10,8 @@ module se.uu.ub.cora.storage {
 	requires se.uu.ub.cora.initialize;
 
 	uses RecordStorageInstanceProvider;
+	uses RecordArchiveProvider;
+	uses ResourceArchiveInstanceProvider;
 
 	exports se.uu.ub.cora.storage;
 	exports se.uu.ub.cora.storage.archive;
