@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.DataRecordGroup;
 import se.uu.ub.cora.data.collected.Link;
 import se.uu.ub.cora.data.collected.StorageTerm;
 
@@ -77,8 +78,27 @@ public interface RecordStorage {
 	 * @param id
 	 *            A String with the records id
 	 * @return A {@link DataGroup} with the requested records data
+	 * @deprecated Use {@link #read(String, String)} instead.
 	 */
+	@Deprecated(forRemoval = true)
 	DataGroup read(List<String> types, String id);
+
+	/**
+	 * read should return, from storage, the record that has one of the specified types and the
+	 * specified id.
+	 * </p>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested record can not be found. *
+	 * </p>
+	 * Any other excpetion while during storage operations throws a {@link StorageException}
+	 * 
+	 * @param type
+	 *            A String with the recordType
+	 * @param id
+	 *            A String with the records id
+	 * @return A {@link DataRecordGroup} with the requested records data
+	 */
+	DataRecordGroup read(String type, String id);
 
 	/**
 	 * create stores the provided dataRecord in storage. CollectedTerms, linkList and dataDivider is
