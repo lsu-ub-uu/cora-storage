@@ -37,21 +37,6 @@ import se.uu.ub.cora.data.collected.StorageTerm;
  * {@link RecordStorageProvider#getRecordStorage()} for each thread that needs access to
  * RecordStorage. Implementations of RecordStorage SHOULD clearly state if they are threadsafe or
  * not, to enable RecordStorageProvider to return the same or new instances as needed.
- * <p>
- * The end goal is that implementing storage solutions should not have to know about implementations
- * details for recordTypes, and should be provided the information needed to handle abstract types,
- * without having to read and understand the set of existing record types.<br>
- * This is a work in progress as can be seen in
- * {@link #getTotalNumberOfRecordsForAbstractType(String, List, DataGroup)}.
- * <p>
- * list of things probably needed:<br>
- * <ul>
- * <li>read needs a new method read(List<String> possibleImplementingTypes, DataGroup filter)</li>
- * <li>readList needs a new method readAbstractList(String abstractType, List<String>
- * implementingTypes, DataGroup filter)</li>
- * <li>readAbstractList needs a new parameter List<String> implementingTypes</li>
- * </ul>
- * 
  */
 public interface RecordStorage {
 
