@@ -118,4 +118,22 @@ public interface ResourceArchive {
 	 *            A String with the resource id
 	 */
 	void delete(String dataDivider, String type, String id);
+
+	/**
+	 * readMetadata reads and returns the specified resource metadata.
+	 * <p>
+	 * If a resource matching type and id does not exist in the archive MUST a
+	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource metadata
+	 * can not be read.
+	 * <p>
+	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
+	 * @param type
+	 *            A String with the resource type
+	 * @param id
+	 *            A String with the resource id
+	 * @return A ResourceMetadata record that includes resource's metadata fetched from fedora.
+	 */
+	ResourceMetadata readMetadata(String dataDivider, String type, String id);
 }

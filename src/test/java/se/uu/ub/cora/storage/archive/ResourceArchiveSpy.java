@@ -23,7 +23,8 @@ import java.io.InputStream;
 public class ResourceArchiveSpy implements ResourceArchive {
 
 	@Override
-	public void create(String dataDivider, String type, String id, InputStream resource, String mimeType) {
+	public void create(String dataDivider, String type, String id, InputStream resource,
+			String mimeType) {
 		// TODO Auto-generated method stub
 
 	}
@@ -35,7 +36,8 @@ public class ResourceArchiveSpy implements ResourceArchive {
 	}
 
 	@Override
-	public void update(String dataDivider, String type, String id, InputStream resource, String mimeType) {
+	public void update(String dataDivider, String type, String id, InputStream resource,
+			String mimeType) {
 		// TODO Auto-generated method stub
 
 	}
@@ -44,6 +46,12 @@ public class ResourceArchiveSpy implements ResourceArchive {
 	public void delete(String dataDivider, String type, String id) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public ResourceMetadata readMetadata(String dataDivider, String type, String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

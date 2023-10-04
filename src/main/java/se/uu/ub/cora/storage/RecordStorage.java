@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.DataRecordGroup;
 import se.uu.ub.cora.data.collected.Link;
 import se.uu.ub.cora.data.collected.StorageTerm;
 
@@ -36,21 +37,6 @@ import se.uu.ub.cora.data.collected.StorageTerm;
  * {@link RecordStorageProvider#getRecordStorage()} for each thread that needs access to
  * RecordStorage. Implementations of RecordStorage SHOULD clearly state if they are threadsafe or
  * not, to enable RecordStorageProvider to return the same or new instances as needed.
- * <p>
- * The end goal is that implementing storage solutions should not have to know about implementations
- * details for recordTypes, and should be provided the information needed to handle abstract types,
- * without having to read and understand the set of existing record types.<br>
- * This is a work in progress as can be seen in
- * {@link #getTotalNumberOfRecordsForAbstractType(String, List, DataGroup)}.
- * <p>
- * list of things probably needed:<br>
- * <ul>
- * <li>read needs a new method read(List<String> possibleImplementingTypes, DataGroup filter)</li>
- * <li>readList needs a new method readAbstractList(String abstractType, List<String>
- * implementingTypes, DataGroup filter)</li>
- * <li>readAbstractList needs a new parameter List<String> implementingTypes</li>
- * </ul>
- * 
  */
 public interface RecordStorage {
 
@@ -77,8 +63,27 @@ public interface RecordStorage {
 	 * @param id
 	 *            A String with the records id
 	 * @return A {@link DataGroup} with the requested records data
+	 * @deprecated Use {@link #read(String, String)} instead.
 	 */
+	@Deprecated(forRemoval = true)
 	DataGroup read(List<String> types, String id);
+
+	/**
+	 * read should return, from storage, the record that has one of the specified types and the
+	 * specified id.
+	 * </p>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the requested record can not be found. *
+	 * </p>
+	 * Any other excpetion while during storage operations throws a {@link StorageException}
+	 * 
+	 * @param type
+	 *            A String with the recordType
+	 * @param id
+	 *            A String with the records id
+	 * @return A {@link DataRecordGroup} with the requested records data
+	 */
+	DataRecordGroup read(String type, String id);
 
 	/**
 	 * create stores the provided dataRecord in storage. CollectedTerms, linkList and dataDivider is
