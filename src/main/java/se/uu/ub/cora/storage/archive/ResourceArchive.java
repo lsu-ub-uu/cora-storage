@@ -22,6 +22,7 @@ import java.io.InputStream;
 
 import se.uu.ub.cora.storage.ResourceConflictException;
 import se.uu.ub.cora.storage.ResourceNotFoundException;
+import se.uu.ub.cora.storage.archive.record.ResourceMetadataToUpdate;
 
 /**
  * ResourceArchive is the interface that defines how resources are stored and retreived from a Cora
@@ -126,6 +127,7 @@ public interface ResourceArchive {
 	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource metadata
 	 * can not be read.
 	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
 	 * 
 	 * @param dataDivider
 	 *            A String with the resource's data divider
@@ -136,4 +138,27 @@ public interface ResourceArchive {
 	 * @return A ResourceMetadata record that includes resource's metadata fetched from fedora.
 	 */
 	ResourceMetadata readMetadata(String dataDivider, String type, String id);
+
+	/**
+	 * updateMetadata updates metadata for a resource in Fedora. Two metadata fields will be updated
+	 * for the resource OriginalFileName and fileSize, both fields are included in the record
+	 * {@link ResourceMetadataToUpdate}
+	 * <p>
+	 * If a resource matching type and id does not exist in the archive MUST a
+	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource metadata
+	 * can not be read.
+	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
+	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
+	 * @param type
+	 *            A String with the resource type
+	 * @param id
+	 *            A String with the resource id
+	 * @param A
+	 *            resourceMetadataToUpdate with the metadata needed for update the resource.
+	 */
+	void updateMetadata(String dataDivider, String type, String id,
+			ResourceMetadataToUpdate resourceMetadataToUpdate);
 }
