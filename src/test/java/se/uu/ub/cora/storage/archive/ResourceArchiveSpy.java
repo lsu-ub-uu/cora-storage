@@ -20,6 +20,8 @@ package se.uu.ub.cora.storage.archive;
 
 import java.io.InputStream;
 
+import se.uu.ub.cora.storage.archive.record.ResourceMetadataToUpdate;
+
 public class ResourceArchiveSpy implements ResourceArchive {
 
 	@Override
@@ -52,6 +54,13 @@ public class ResourceArchiveSpy implements ResourceArchive {
 	public ResourceMetadata readMetadata(String dataDivider, String type, String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void updateMetadata(String dataDivider, String type, String id,
+			ResourceMetadataToUpdate resourceMetadataToUpdate) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

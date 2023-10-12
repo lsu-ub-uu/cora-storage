@@ -15,5 +15,6 @@ module se.uu.ub.cora.storage {
 
 	exports se.uu.ub.cora.storage;
 	exports se.uu.ub.cora.storage.archive;
+	exports se.uu.ub.cora.storage.archive.record;
 	exports se.uu.ub.cora.storage.idgenerator;
 }
