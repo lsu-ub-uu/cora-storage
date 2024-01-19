@@ -25,14 +25,14 @@ import se.uu.ub.cora.storage.archive.record.ResourceMetadataToUpdate;
 public class ResourceArchiveSpy implements ResourceArchive {
 
 	@Override
-	public void create(String dataDivider, String type, String id, InputStream resource,
+	public void createMasterResource(String dataDivider, String type, String id, InputStream resource,
 			String mimeType) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public InputStream read(String dataDivider, String type, String id) {
+	public InputStream readMasterResource(String dataDivider, String type, String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -51,13 +51,13 @@ public class ResourceArchiveSpy implements ResourceArchive {
 	}
 
 	@Override
-	public ResourceMetadata readMetadata(String dataDivider, String type, String id) {
+	public ResourceMetadata readMasterResourceMetadata(String dataDivider, String type, String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void updateMetadata(String dataDivider, String type, String id,
+	public void updateMasterResourceMetadata(String dataDivider, String type, String id,
 			ResourceMetadataToUpdate resourceMetadataToUpdate) {
 		// TODO Auto-generated method stub
 

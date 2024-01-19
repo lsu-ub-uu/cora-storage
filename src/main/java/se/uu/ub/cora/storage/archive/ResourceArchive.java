@@ -38,7 +38,7 @@ import se.uu.ub.cora.storage.archive.record.ResourceMetadataToUpdate;
 public interface ResourceArchive {
 
 	/**
-	 * create stores the resource in the archive.
+	 * createMasterResource stores the master representation of a binary in the archive.
 	 * <p>
 	 * If a resource matching type and id already exists in the archive MUST a
 	 * {@link ResourceConflictException} be thrown, indicating that the requested resource can not
@@ -57,10 +57,12 @@ public interface ResourceArchive {
 	 * @param mimeType
 	 *            String with the MIME type of the resource
 	 */
-	void create(String dataDivider, String type, String id, InputStream resource, String mimeType);
+	void createMasterResource(String dataDivider, String type, String id, InputStream resource,
+			String mimeType);
 
 	/**
-	 * read the resource from the archive
+	 * readMasterResource reads a resource, that represents the master representation of a binary,
+	 * from the archive.
 	 * 
 	 * <p>
 	 * If a resource matching type and id does not exist in the archive MUST a
@@ -77,7 +79,7 @@ public interface ResourceArchive {
 	 *            A String with the reource id
 	 * @return An InputStream with the requested resource
 	 */
-	InputStream read(String dataDivider, String type, String id);
+	InputStream readMasterResource(String dataDivider, String type, String id);
 
 	/**
 	 * update stores the resource in the archive.
@@ -121,7 +123,7 @@ public interface ResourceArchive {
 	void delete(String dataDivider, String type, String id);
 
 	/**
-	 * readMetadata reads and returns the specified resource metadata.
+	 * readMasterResourceMetadata reads and returns the specified resource metadata.
 	 * <p>
 	 * If a resource matching type and id does not exist in the archive MUST a
 	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource metadata
@@ -137,12 +139,12 @@ public interface ResourceArchive {
 	 *            A String with the resource id
 	 * @return A ResourceMetadata record that includes resource's metadata fetched from fedora.
 	 */
-	ResourceMetadata readMetadata(String dataDivider, String type, String id);
+	ResourceMetadata readMasterResourceMetadata(String dataDivider, String type, String id);
 
 	/**
-	 * updateMetadata updates metadata for a resource in Fedora. Two metadata fields will be updated
-	 * for the resource OriginalFileName and fileSize, both fields are included in the record
-	 * {@link ResourceMetadataToUpdate}
+	 * updateMasterResourceMetadata updates metadata for a resource in Fedora. Two metadata fields
+	 * will be updated for the resource OriginalFileName and fileSize, both fields are included in
+	 * the record {@link ResourceMetadataToUpdate}
 	 * <p>
 	 * If a resource matching type and id does not exist in the archive MUST a
 	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource metadata
@@ -159,6 +161,6 @@ public interface ResourceArchive {
 	 * @param A
 	 *            resourceMetadataToUpdate with the metadata needed for update the resource.
 	 */
-	void updateMetadata(String dataDivider, String type, String id,
+	void updateMasterResourceMetadata(String dataDivider, String type, String id,
 			ResourceMetadataToUpdate resourceMetadataToUpdate);
 }
