@@ -16,7 +16,6 @@
  *     You should have received a copy of the GNU General Public License
  *     along with Cora.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package se.uu.ub.cora.storage;
 
 import java.io.InputStream;
@@ -27,6 +26,7 @@ import java.io.InputStream;
  * system enabling different stream storage solutions to be developed and used depending on the
  * needs of the current system.
  */
+
 public interface StreamStorage {
 
 	/**
