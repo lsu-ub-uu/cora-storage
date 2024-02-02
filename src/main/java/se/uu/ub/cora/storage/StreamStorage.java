@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Uppsala University Library
+ * Copyright 2016, 2024 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -29,8 +29,34 @@ import java.io.InputStream;
  */
 public interface StreamStorage {
 
+	/**
+	 * Stores a stream in the file system based on the provided streamId and data divider.
+	 *
+	 * @param streamId
+	 *            The unique identifier of the stream.
+	 * @param dataDivider
+	 *            The divider used to organize data within the file system.
+	 * @param inputStream
+	 *            The InputStream containing the data to be stored.
+	 * 
+	 * @throws RuntimeException
+	 *             if any exception occurs during the storage process.
+	 */
+
 	long store(String streamId, String dataDivider, InputStream stream);
 
+	/**
+	 * Retrieves a stream from the file system based on the provided streamId and data divider.
+	 *
+	 * @param streamId
+	 *            The unique identifier of the stream.
+	 * @param dataDivider
+	 *            The divider used to organize data within the file system.
+	 * @return An {@link InputStream} representing the retrieved data.
+	 * 
+	 * @throws RuntimeException
+	 *             if the stream does not exist or if any exception occurs on the retrieval.
+	 */
 	InputStream retrieve(String streamId, String dataDivider);
 
 }
