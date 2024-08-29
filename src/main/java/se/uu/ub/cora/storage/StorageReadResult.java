@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, 2018 Uppsala University Library
+ * Copyright 2017, 2018, 2024 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.uu.ub.cora.data.DataGroup;
+import se.uu.ub.cora.data.DataRecordGroup;
 
 /**
  * StorageReadResult contains the result of a read from storage. It consists of a list with the
@@ -43,8 +44,13 @@ public final class StorageReadResult {
 	public long totalNumberOfMatches = 0;
 
 	/**
-	 * listOfDataGroups is a list records that match the request that has been made
+	 * listOfDataGroups is a list {@link DataGroup} that match the request that has been made
 	 */
 	public List<DataGroup> listOfDataGroups = new ArrayList<>();
 
+	/**
+	 * listOfDataRecordGroups is a list {@link DataRecordGroup} that match the request that has been
+	 * made
+	 */
+	public List<DataRecordGroup> listOfDataRecordGroups = new ArrayList<>();
 }

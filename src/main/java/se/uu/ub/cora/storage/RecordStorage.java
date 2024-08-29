@@ -163,6 +163,30 @@ public interface RecordStorage {
 			Set<Link> links, String dataDivider);
 
 	/**
+	 * readList should return, from storage, all records corresponding the type and matches the
+	 * provided filter.
+	 * <p>
+	 * If a filter is specified should the returned records only be those which match the
+	 * filter.<br>
+	 * Filter information is based on the collectedTerms / storageTerms entered together with the
+	 * record when creating or updating the record. If the filter contains include or exclude
+	 * information should only those records that match the include and exclude parameters be
+	 * returned.<br>
+	 * If the filter specifies a specific range of records to return, should only the records that
+	 * are inside the specified range and match any specified filter be returned.
+	 * </p>
+	 * If no records are found should a StorageReadResult with no results be returned.
+	 * 
+	 * @param type
+	 *            A string with the type of records to read.
+	 * @param filter
+	 *            A {@link Filter} with filter information about which subset of records to return.
+	 * @return A StorageReadResult with the records, as {@link DataRecordGroup}, that exist in
+	 *         storage for the specified type and filter.
+	 */
+	StorageReadResult readList(String type, Filter filter);
+
+	/**
 	 * readList should return, from storage, the records that has the corresponding type and matches
 	 * the provided filter.
 	 * <p>
@@ -183,7 +207,9 @@ public interface RecordStorage {
 	 *            A {@link Filter} with filter information about which subset of records to return.
 	 * @return A StorageReadResult with the records that exist in storage for the specified types
 	 *         and filter
+	 * @deprecated Use {@link #readList(String, Filter)} instead.
 	 */
+	@Deprecated(forRemoval = true)
 	StorageReadResult readList(List<String> types, Filter filter);
 
 	/**
