@@ -35,8 +35,7 @@ import se.uu.ub.cora.data.collected.StorageTerm;
  * <p>
  * Instances of RecordStorage SHOULD be accessed through
  * {@link RecordStorageProvider#getRecordStorage()} for each thread that needs access to
- * RecordStorage. Implementations of RecordStorage SHOULD clearly state if they are threadsafe or
- * not, to enable RecordStorageProvider to return the same or new instances as needed.
+ * RecordStorage.
  */
 public interface RecordStorage {
 

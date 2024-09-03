@@ -28,9 +28,9 @@ public interface RecordStorageInstanceProvider extends SelectOrder {
 	/**
 	 * getRecordStorage should be implemented in such a way that it returns a RecordStorage that can
 	 * be used by anything that needs access to records. Multiple calls to getRecordStorage should
-	 * return instances or the same instance, depending on the implementation. It must be possible
-	 * to use the currently returned instance without considering if other calls has been made to
-	 * this method.
+	 * return new instances or the same instance, depending on the implementation. It must be
+	 * possible to use the currently returned instance without considering if other calls has been
+	 * made to this method.
 	 * 
 	 * @return A RecordStorage that gives access to storage for records
 	 */
