@@ -36,7 +36,6 @@ import se.uu.ub.cora.storage.idgenerator.RecordIdGenerator;
 public class TimeStampIdGeneratorProviderTest {
 	private Map<String, String> initInfo = new HashMap<>();
 	private LoggerFactorySpy loggerFactorySpy;
-	private String testedClassName = "TimeStampIdGeneratorProvider";
 	private TimeStampIdGeneratorProvider timeStampIdGeneratorProvider;
 
 	@BeforeMethod
