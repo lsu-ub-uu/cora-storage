@@ -21,6 +21,7 @@ package se.uu.ub.cora.storage.archive;
 import se.uu.ub.cora.data.DataGroup;
 import se.uu.ub.cora.storage.RecordConflictException;
 import se.uu.ub.cora.storage.RecordNotFoundException;
+import se.uu.ub.cora.storage.ResourceNotFoundException;
 
 /**
  * RecordArchive is the interface that defines how records are stored and retreived from a Cora
@@ -74,4 +75,23 @@ public interface RecordArchive {
 	 *            A {@link DataGroup} with the record's data
 	 */
 	void update(String dataDivider, String type, String id, DataGroup dataRecord);
+
+	/**
+	 * delete removes a record from the archive
+	 * 
+	 * <p>
+	 * If a record matching type and id does not exist in the archive MUST a
+	 * {@link ResourceNotFoundException} be thrown, indicating that the requested resource can not
+	 * be deleted.
+	 * <p>
+	 * Any other errors MUST throw an {@link ArchiveException}
+	 * 
+	 * @param dataDivider
+	 *            A String with the resource's data divider
+	 * @param type
+	 *            A String with the resource type
+	 * @param id
+	 *            A String with the resource id
+	 */
+	void delete(String dataDivider, String type, String id);
 }
