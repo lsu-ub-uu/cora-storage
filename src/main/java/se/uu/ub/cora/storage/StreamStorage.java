@@ -30,13 +30,13 @@ import java.io.InputStream;
 public interface StreamStorage {
 
 	/**
-	 * Stores a stream in the file system based on the provided streamId and data divider.
+	 * Stores a stream in storage based on the provided streamId and data divider.
 	 *
 	 * @param streamId
 	 *            The unique identifier of the stream.
 	 * @param dataDivider
-	 *            The divider used to organize data within the file system.
-	 * @param inputStream
+	 *            The divider used to organize data within the storage.
+	 * @param inputStreamm
 	 *            The InputStream containing the data to be stored.
 	 * 
 	 * @throws RuntimeException
@@ -46,12 +46,12 @@ public interface StreamStorage {
 	long store(String streamId, String dataDivider, InputStream stream);
 
 	/**
-	 * Retrieves a stream from the file system based on the provided streamId and data divider.
+	 * Retrieves a stream from storage based on the provided streamId and data divider.
 	 *
 	 * @param streamId
 	 *            The unique identifier of the stream.
 	 * @param dataDivider
-	 *            The divider used to organize data within the file system.
+	 *            The divider used to organize data within the storage.
 	 * @return An {@link InputStream} representing the retrieved data.
 	 * 
 	 * @throws RuntimeException
@@ -59,4 +59,15 @@ public interface StreamStorage {
 	 */
 	InputStream retrieve(String streamId, String dataDivider);
 
+	/**
+	 * Deletes a stream from storage based on the provided streamId and data divider.
+	 *
+	 * @param streamId
+	 *            The unique identifier of the stream.
+	 * @param dataDivider
+	 *            The divider used to organize data within the storage.
+	 * @throws RuntimeException
+	 *             if the stream does not exist or if any exception occurs on the retrieval.
+	 */
+	void delete(String streamId, String dataDivider);
 }
