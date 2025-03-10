@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Uppsala University Library
+ * Copyright 2022, 2025 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -38,14 +38,6 @@ public class RecordStorageProvider {
 		throw new UnsupportedOperationException();
 	}
 
-	static ModuleInitializer onlyForTestGetModuleInitializer() {
-		return moduleInitializer;
-	}
-
-	static void onlyForTestSetModuleInitializer(ModuleInitializer moduleInitializer) {
-		RecordStorageProvider.moduleInitializer = moduleInitializer;
-	}
-
 	/**
 	 * getRecordStorage returns a RecordStorage that can be used by anything that needs access to
 	 * records.
@@ -68,6 +60,25 @@ public class RecordStorageProvider {
 	}
 
 	/**
+	 * dataChanged method is intended to inform the instance provider about data that is changed in
+	 * storage. This is to make it possible to implement a cached storage and update relevant
+	 * records when data is changed. This change can be done by processes running in the same system
+	 * or by processes running on other servers.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param action
+	 *            A String with the action of how the data was changed ("create", "update" or
+	 *            "delete").
+	 */
+	public static void dataChanged(String type, String id, String action) {
+		locateAndChooseRecordStorageInstanceProvider();
+		recordStorageInstanceProvider.dataChanged(type, id, action);
+	}
+
+	/**
 	 * onlyForTestSetDataRecordFactory sets a RecordStorageInstanceProvider that will be used to
 	 * return instances for the {@link #getRecordStorage()} method. This possibility to set a
 	 * DataRecordFactory is provided to enable testing of getting a record storage in other classes
@@ -84,4 +95,13 @@ public class RecordStorageProvider {
 			RecordStorageInstanceProvider recordStorageInstanceProvider) {
 		RecordStorageProvider.recordStorageInstanceProvider = recordStorageInstanceProvider;
 	}
+
+	static ModuleInitializer onlyForTestGetModuleInitializer() {
+		return moduleInitializer;
+	}
+
+	static void onlyForTestSetModuleInitializer(ModuleInitializer moduleInitializer) {
+		RecordStorageProvider.moduleInitializer = moduleInitializer;
+	}
+
 }

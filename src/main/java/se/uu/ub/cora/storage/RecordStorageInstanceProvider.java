@@ -35,4 +35,20 @@ public interface RecordStorageInstanceProvider extends SelectOrder {
 	 * @return A RecordStorage that gives access to storage for records
 	 */
 	RecordStorage getRecordStorage();
+
+	/**
+	 * dataChanged method is intended to inform the instance provider about data that is changed in
+	 * storage. This is to make it possible to implement a cached storage and update relevant
+	 * records when data is changed. This change can be done by processes running in the same system
+	 * or by processes running on other servers.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param action
+	 *            A String with the action of how the data was changed ("create", "update" or
+	 *            "delete").
+	 */
+	void dataChanged(String recordType, String recordId, String action);
 }
