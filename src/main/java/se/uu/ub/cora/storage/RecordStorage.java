@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2020, 2021, 2022 Uppsala University Library
+ * Copyright 2015, 2020, 2021, 2022, 2025 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -257,6 +257,33 @@ public interface RecordStorage {
 	 * @return A Set of all Links pointing from other records to the specified record.
 	 */
 	Set<Link> getLinksToRecord(String type, String id);
+
+	/**
+	 * getLinksFromRecord returns a collection of all links from the record specified by type and
+	 * id.
+	 * </p>
+	 * If no links are found should an empty collection be returned.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @return A Set of all Links pointing from the specified record.
+	 */
+	Set<Link> getLinksFromRecord(String type, String id);
+
+	/**
+	 * getStorageTermsForRecord returns the storageTerms stored for the record specified by type and
+	 * id.
+	 * </p>
+	 * If no storageTerms are found should an empty set be returned.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 */
+	Set<StorageTerm> getStorageTermsForRecord(String type, String id);
 
 	/**
 	 * getTotalNumberOfRecordsForTypes should return the number of records that are stored under the
