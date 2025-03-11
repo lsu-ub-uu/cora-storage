@@ -50,5 +50,5 @@ public interface RecordStorageInstanceProvider extends SelectOrder {
 	 *            A String with the action of how the data was changed ("create", "update" or
 	 *            "delete").
 	 */
-	void dataChanged(String recordType, String recordId, String action);
+	void dataChanged(String type, String id, String action);
 }
