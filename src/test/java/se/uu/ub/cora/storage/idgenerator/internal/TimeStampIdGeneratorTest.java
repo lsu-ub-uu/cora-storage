@@ -19,6 +19,12 @@
 
 package se.uu.ub.cora.storage.idgenerator.internal;
 
+import static org.testng.Assert.assertEquals;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -33,4 +39,40 @@ public class TimeStampIdGeneratorTest {
 		Assert.assertNotEquals(keyType, keyType2,
 				"The generated keys should not be equal for two different types");
 	}
+
+	@Test
+	public void testGetIdForTypeWithSimultaneousVirtualThreads() throws InterruptedException {
+		TimeStampIdGenerator generator = new TimeStampIdGenerator();
+		int numberOfexecs = 1000;
+		int threadCount = 1000;
+		CountDownLatch startLatch = new CountDownLatch(1);
+		CountDownLatch doneLatch = new CountDownLatch(threadCount);
+		Map<String, String> ids = new ConcurrentHashMap<>();
+
+		for (int i = 0; i < threadCount; i++) {
+			Thread.startVirtualThread(() -> {
+				try {
+					startLatch.await(); // Wait for the starting signal
+					int execs = numberOfexecs;
+					while (execs != 0) {
+						String id = generator.getIdForType("type");
+						ids.put(id, id);
+						execs--;
+					}
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				} finally {
+					doneLatch.countDown();
+				}
+			});
+		}
+
+		System.out.println("Ready? " + ids.size());
+		startLatch.countDown(); // Release all threads to start at the same time
+		doneLatch.await(); // Wait for all threads to finish
+
+		assertEquals(ids.size(), threadCount * numberOfexecs,
+				"Size " + ids.size() + ", and diff: " + (threadCount * numberOfexecs - ids.size()));
+	}
+
 }

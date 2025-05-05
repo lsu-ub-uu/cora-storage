@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uppsala University Library
+ * Copyright 2015, 2025 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -24,7 +24,8 @@ import se.uu.ub.cora.storage.idgenerator.RecordIdGenerator;
 public class TimeStampIdGenerator implements RecordIdGenerator {
 
 	@Override
-	public String getIdForType(String type) {
+	public synchronized String getIdForType(String type) {
 		return type + ":" + System.nanoTime();
 	}
+
 }
