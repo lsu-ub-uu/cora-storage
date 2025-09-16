@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, 2024 Uppsala University Library
+ * Copyright 2023, 2024, 2025 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -33,9 +33,11 @@ public interface StreamPathBuilder {
 	 *            is a String with the type of the record.
 	 * @param id
 	 *            is a String with the id of the file.
-	 * 
-	 * @return
+	 * @param representation
+	 *            is a String with the name of the representation
+	 * @return A String with the path to the file using dataDivider, type, id and representation
 	 */
-	String buildPathToAFileAndEnsureFolderExists(String dataDivider, String type, String id);
+	String buildPathToAFileAndEnsureFolderExists(String dataDivider, String type, String id,
+			String representation);
 
 }
