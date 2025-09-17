@@ -31,43 +31,59 @@ public interface StreamStorage {
 
 	/**
 	 * Stores a stream in storage based on the provided streamId and data divider.
-	 *
-	 * @param streamId
-	 *            The unique identifier of the stream.
+	 * 
 	 * @param dataDivider
 	 *            The divider used to organize data within the storage.
+	 * @param type
+	 *            The type of the stream
+	 * @param id
+	 *            The unique identifier of the stream.
+	 * @param representation
+	 *            The representation
 	 * @param inputStreamm
 	 *            The InputStream containing the data to be stored.
-	 * 
+	 *
 	 * @throws RuntimeException
 	 *             if any exception occurs during the storage process.
 	 */
 
-	long store(String streamId, String dataDivider, InputStream stream);
+	long store(String dataDivider, String type, String id, String representation,
+			InputStream stream);
 
 	/**
 	 * Retrieves a stream from storage based on the provided streamId and data divider.
-	 *
-	 * @param streamId
-	 *            The unique identifier of the stream.
+	 * 
 	 * @param dataDivider
 	 *            The divider used to organize data within the storage.
+	 * @param type
+	 *            The type of the stream
+	 * @param id
+	 *            The unique identifier of the stream.
+	 * @param representation
+	 *            The representation
+	 *
 	 * @return An {@link InputStream} representing the retrieved data.
 	 * 
 	 * @throws RuntimeException
 	 *             if the stream does not exist or if any exception occurs on the retrieval.
 	 */
-	InputStream retrieve(String streamId, String dataDivider);
+	InputStream retrieve(String dataDivider, String type, String id, String representation);
 
 	/**
 	 * Deletes a stream from storage based on the provided streamId and data divider.
-	 *
-	 * @param streamId
-	 *            The unique identifier of the stream.
+	 * 
 	 * @param dataDivider
 	 *            The divider used to organize data within the storage.
+	 * @param type
+	 *            The type of the stream
+	 * @param id
+	 *            The unique identifier of the stream.
+	 * @param representation
+	 *            The representation
+	 *
 	 * @throws RuntimeException
 	 *             if the stream does not exist or if any exception occurs on the retrieval.
 	 */
-	void delete(String streamId, String dataDivider);
+	void delete(String dataDivider, String type, String id, String representation);
+
 }

@@ -23,14 +23,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import se.uu.ub.cora.storage.StorageException;
-import se.uu.ub.cora.storage.hash.CoraDigestUtils;
+import se.uu.ub.cora.storage.hash.CoraDigestor;
 
-public class CoraDigestUtilsImp implements CoraDigestUtils {
+public class CoraDigestorImp implements CoraDigestor {
 
 	private String sha256Algorithm = "SHA-256";
 
 	@Override
-	public String sha256Hex(String valueToHash) {
+	public String stringToSha256Hex(String valueToHash) {
 		MessageDigest digest = tryToGetDigestAlgorithm();
 		return hashValueUsingDigest(digest, valueToHash);
 	}
@@ -45,8 +45,8 @@ public class CoraDigestUtilsImp implements CoraDigestUtils {
 		try {
 			return MessageDigest.getInstance(sha256Algorithm);
 		} catch (NoSuchAlgorithmException e) {
-			throw StorageException.withMessageAndException("Failed to get someAlgorithm algorithm",
-					e);
+			throw StorageException
+					.withMessageAndException("Failed to get " + sha256Algorithm + " algorithm", e);
 		}
 	}
 

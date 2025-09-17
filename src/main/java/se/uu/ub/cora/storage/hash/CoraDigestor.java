@@ -18,15 +18,15 @@
  */
 package se.uu.ub.cora.storage.hash;
 
-public interface CoraDigestUtils {
+public interface CoraDigestor {
 
 	/**
-	 * sha256Hex method is used to hash a string value to sha256 hexadecimal.
+	 * stringToSha256Hex method is used to hash a string value to sha256 hexadecimal.
 	 * 
 	 * @param valueToHash
 	 *            The string to be hashed
 	 * @return The hashed string
 	 */
-	String sha256Hex(String valueToHash);
+	String stringToSha256Hex(String valueToHash);
 
 }
