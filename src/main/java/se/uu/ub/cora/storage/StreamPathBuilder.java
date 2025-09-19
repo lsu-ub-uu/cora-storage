@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, 2024 Uppsala University Library
+ * Copyright 2023, 2024, 2025 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -21,11 +21,8 @@ package se.uu.ub.cora.storage;
 public interface StreamPathBuilder {
 
 	/**
-	 * buildPathToAFileAndEnsureFolderExists method builds a path to a file to be stored in
-	 * fileSystem. It also ensures that the folder containing the file exists, if not it creates the
-	 * necessary folders.
-	 * <p>
-	 * It can throws ImageConverterException if an error ocurr.
+	 * buildPathToAFile method builds a path to a file to be stored in fileSystem.
+	 * 
 	 * 
 	 * @param dataDivider
 	 *            datadivider of a the record
@@ -33,9 +30,30 @@ public interface StreamPathBuilder {
 	 *            is a String with the type of the record.
 	 * @param id
 	 *            is a String with the id of the file.
-	 * 
-	 * @return
+	 * @param representation
+	 *            is a String with the name of the representation
+	 * @return A String with the path to the file using dataDivider, type, id and representation
 	 */
-	String buildPathToAFileAndEnsureFolderExists(String dataDivider, String type, String id);
+	String buildPathToAFile(String dataDivider, String type, String id, String representation);
+
+	/**
+	 * buildPathToAFileAndEnsureFolderExists method builds a path to a file to be stored in
+	 * fileSystem. It also ensures that the folder containing the file exists, if not it creates the
+	 * necessary folders.
+	 * <p>
+	 * It can throws {@link StorageException} if an error ocurr.
+	 * 
+	 * @param dataDivider
+	 *            datadivider of a the record
+	 * @param type
+	 *            is a String with the type of the record.
+	 * @param id
+	 *            is a String with the id of the file.
+	 * @param representation
+	 *            is a String with the name of the representation
+	 * @return A String with the path to the file using dataDivider, type, id and representation
+	 */
+	String buildPathToAFileAndEnsureFolderExists(String dataDivider, String type, String id,
+			String representation);
 
 }
