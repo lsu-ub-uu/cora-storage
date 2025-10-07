@@ -20,7 +20,7 @@
 package se.uu.ub.cora.storage.idgenerator;
 
 public interface RecordIdGenerator {
-
+	@Deprecated
 	String getIdForType(String type);
 
 }
