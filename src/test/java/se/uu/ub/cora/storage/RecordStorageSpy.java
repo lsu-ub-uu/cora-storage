@@ -108,4 +108,11 @@ public class RecordStorageSpy implements RecordStorage {
 		return null;
 	}
 
+	@Override
+	public void updateCollectedData(String type, String id, Set<StorageTerm> storageTerms,
+			Set<Link> links, String dataDivider) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
