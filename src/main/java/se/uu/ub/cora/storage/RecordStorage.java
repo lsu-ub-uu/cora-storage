@@ -183,12 +183,10 @@ public interface RecordStorage {
 	 *            A String with the records id
 	 * @param storageTerms
 	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
-	 * @param links
-	 *            A set {@link Link} that this record points to.
 	 * @param dataDivider
 	 *            A String representing the system the record belongs to.
 	 */
-	void updateCollectedData(String type, String id, Set<StorageTerm> storageTerms, Set<Link> links,
+	void updateCollectedData(String type, String id, Set<StorageTerm> storageTerms,
 			String dataDivider);
 
 	/**
