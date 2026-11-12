@@ -1,5 +1,5 @@
 /*
- * Copyright 2015, 2020, 2021, 2022, 2025 Uppsala University Library
+ * Copyright 2015, 2020, 2021, 2022, 2025, 2026 Uppsala University Library
  *
  * This file is part of Cora.
  *
@@ -160,6 +160,34 @@ public interface RecordStorage {
 	 */
 	void update(String type, String id, DataGroup dataRecord, Set<StorageTerm> storageTerms,
 			Set<Link> links, String dataDivider);
+
+	/**
+	 * update updates the existing collected data for a dataRecord in storage with the new provided
+	 * data. CollectedTerms, linkList and dataDivider are updated in relationship to type and id.
+	 * When the update is complete should the stored collected data only contain the information
+	 * that was provided in this update call.
+	 * <p>
+	 * The terms (key value pairs) found in collectedTerms should be stored in such a way so they
+	 * can be used to filter data when reading.
+	 * <p>
+	 * The links found in linkList should stored in such a way so they can be used in the
+	 * {@link #readLinkList(String, String)} method to retreive all records that has links pointing
+	 * to a specified record.
+	 * <p>
+	 * If no record matching type and id is found MUST a {@link RecordNotFoundException} be thrown,
+	 * indicating that the record to update can not be found.
+	 * 
+	 * @param type
+	 *            A String with the records type
+	 * @param id
+	 *            A String with the records id
+	 * @param storageTerms
+	 *            A list of {@link StorageTerm} containg the storageTerms for the record.
+	 * @param dataDivider
+	 *            A String representing the system the record belongs to.
+	 */
+	void updateCollectedData(String type, String id, Set<StorageTerm> storageTerms,
+			String dataDivider);
 
 	/**
 	 * readList should return, from storage, all records corresponding the type and matches the
